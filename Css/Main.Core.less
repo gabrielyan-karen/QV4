@@ -1,0 +1,91 @@
+@import "Main.CSS.less";
+
+/* --- HTML elements --- */
+
+/* Disable selection for all elements; this also disables magnifying glass on iPhone */
+/* CAUTION Should be enabled for input (textbox) elements especially on touch devices */
+*:not(input) {
+    .css-user-select(none);
+}
+
+body {
+    cursor: default;
+    padding: 0px;
+    margin: 0px;
+    font-family: Helvetica, Arial, Sans-Serif;
+    font-size: 8pt;
+    overflow: hidden; 
+}
+
+table {
+    font-size: inherit; /* Inherit the value from the parent */
+    cursor: default;
+    font-family: Helvetica, Arial, Sans-Serif;
+}
+
+/* This tag may be used in tooltips; should inherit font family and size of the parent tag */
+pre {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Remove default border settings */
+table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+/* Default cell padding to compensate for border settings */
+td {
+    padding: 2px;
+}
+
+/* Remove default TH formatting */
+th {
+    text-align: left;
+    font-weight: normal;
+}
+
+/* -- Elements -- */
+
+.disabled-element {
+    .css-filter("grayscale(1)");
+}
+
+/* An element that is not visible */
+.hidden-element {
+    display: none;
+}
+
+/* An element that is not visible, but occupies space */
+.transparent-element {
+    visibility: hidden;
+}
+
+/* -- Text -- */
+
+/* A style to be applied to any text that should stand out */
+.highlighted-text {
+    color: #FFE720;
+}
+
+/* A style to be applied to help info and less important text */
+.dimmed-text {
+    color: gray;
+}
+
+/* -- Numbers -- */
+
+/* A default class to apply to positive values */
+.positive-value {
+    color: #00b000;
+}
+
+/* A default class to apply to negative values */
+.negative-value {
+    color: red;
+}
+
+/* A default class to apply to neutral values like "N/A" */
+.neutral-value {
+}

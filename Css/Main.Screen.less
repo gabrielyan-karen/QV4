@@ -1,0 +1,94 @@
+@import "Main.Core.less";
+@import "Main.CSS.less";
+
+/* A box the fills the entire screen */
+.screen-layer-base(@zindex: inital) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: @zindex;
+}
+
+/* A box that fills the entire screen and is transparent to mouse input events */
+.screen-layer(@zindex: inital) {
+    .screen-layer-base(@zindex);
+    .transparent-mouse-events;
+}
+
+/* A semi-transparent gray overlay over the screen the blocks any user input */
+.screen-overlay(@zindex: inital) {
+    .screen-layer-base(@zindex);
+    background: rgba(0,0,0,0.3);
+}
+
+/* A placeholder for all windows */
+.window-screen-layer {
+    .screen-layer(1010); /* Must be above the main view */
+	/* 2015-08-05 CAUTION The menu blocker layers MUST be above windows and below dialogs; the reason is that when clicked it closes the menu (if open) */
+}
+
+/* A placeholder for all dialogs */
+.dialog-screen-layer {
+    .screen-layer(1020); /* Must be above the windows */
+    .css-fast-scrolling(); // BUG This fixes a bug in iOS 5 and later by preventing
+}
+
+/* Displayed when connection to the server is lost */
+.no-connection-screen-layer {
+    .screen-layer(1003);
+    .center-child();
+    font-size: 24pt;
+    font-weight: bold;
+    text-transform: capitalize;
+    font-family: Verdana;
+    color: rgba(255, 255, 255, 0.80);
+    background-color: rgba(255, 255, 255, 0.40);
+    text-shadow: 4px 4px 5px #AAA !important; /* Important is required since shadow is disabled due to jQM */
+}
+
+/* #region Screen */
+
+.loading-screen {
+    .screen-overlay;
+    background-color: white;
+
+    & > .text {
+        .css-position-absolute();
+        background-image: url("Images/loading-v1.gif");
+        background-position: center top;
+        background-repeat: no-repeat;
+        padding-top: 74px;
+        font-size: 8pt;
+        text-align: center;
+        max-width: 200px;
+        max-height: 50px;
+        margin: auto;
+
+        & > .header {
+            font-size: 10pt;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        & > .content {
+        }
+    }
+}
+
+.browser-not-supported-screen {
+    .screen-overlay;
+    background-color: white;
+
+    & > .text {
+        .css-position-absolute();
+        max-width: 250px;
+        max-height: 50px;
+        margin: auto;
+        text-align: center;
+        font-size: 10pt;
+    }
+}
+
+/* #endregion */

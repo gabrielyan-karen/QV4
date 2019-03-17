@@ -1,0 +1,528 @@
+@import "Main.Helpers.less";
+@import "Main.CSS.less";
+@import "Main.Themes.less";
+
+/* #region Interactive elements */
+
+/* A generic interactive element different from HTML input elements (e.g. DIV or SPAN) */
+.interactive-element {
+    .css-box-sizing(border-box);
+    /* Must always have a border to avoid changing its size */
+    border: 1px dotted transparent;
+    /* Hide the border if the button is disabled */
+    &:not(.disabled) {
+        border: 1px dotted #A0A0A0;
+        cursor: pointer;
+    }
+}
+
+/* Represents a button */
+.button() {
+    .interactive-element;
+}
+
+/* Represents a text button */
+.text-button() {
+    .button();
+    text-align: center;
+    vertical-align: middle;
+}
+
+.text-button(@width, @height) {
+    .text-button();
+    width: @width;
+    height: @height;
+    line-height: @height; /* Centers the text vertically */
+}
+
+/* Represents a text button */
+.text-button(@size) {
+    .button();
+    .text-button(@size, @size);
+}
+
+/* Represents a button based on an image */
+.image-button(@url) {
+    .button();
+    .css-background-center-image(@url);
+}
+
+.image-button(@url, @size) {
+    .image-button(@url);
+    width: @size;
+    height: @size;
+}
+
+// Sets the URL of the button only
+.image-button-url(@url) {
+    background-image: url(@url);
+}
+
+/* #endregion */
+
+/* #region Toolbar */
+
+.toolbar {
+    /* The default width between elements */
+    @separator-width: 5px;
+
+    .css-flex(row, nowrap);
+    /* An element aligned to the left side of the toolbar */
+    .left {
+        .css-order(1);
+        .css-align-self(flex-start);
+
+        & ~ .left {
+            margin-left: @separator-width;
+        }
+    }
+    /* An element aligned to the right side of the toolbar */
+    .right {
+        .css-order(3);
+        .css-align-self(flex-end);
+
+        & ~ .right {
+            margin-left: @separator-width;
+        }
+    }
+    /* An element that fills the rest of the toolbar */
+    .fill {
+        .css-order(2);
+        .css-flex-grow(1);
+        .css-flex-shrink(1);
+        /* There does not seem to be a way to show the margin only if there are left/right elements */
+        margin-left: @separator-width;
+        margin-right: @separator-width;
+    }
+    /* An element vertically aligned to the top. */
+    .v-top {
+        .css-align-content(flex-start);
+    }
+    /* An element vertically aligned to the bottom. */
+    .v-bottom {
+        .css-align-content(flex-end);
+    }
+    /* An element vertically aligned in the center. */
+    .v-center {
+        .css-align-content(center);
+    }
+}
+
+/* #endregion */
+
+/* #region Themes */
+
+/* Specifies default values for theme properties */
+.control-theme-def() {
+    @default-text-color: inherit; // Inherit from parent
+    @default-background-color: transparent; // No background color at all
+}
+
+.control-theme-def(cyan) {
+    .control-theme-def();
+    @default-border-color: ghostwhite;
+}
+
+.control-theme-def(black) {
+    .control-theme-def();
+    @default-border-color: #202020;
+}
+
+/* #endregion */
+
+/* #region Icons */
+
+/* Specifies the image of an icon */
+.control-icon-theme(@theme, @icon-name, @icon-version) when (@icon-version = 0) {
+    background-image: url("Images/Icons/Controls/@{theme}/@{icon-name}.svg");
+}
+
+.control-icon-theme(@theme, @icon-name, @icon-version) when (default()) {
+    background-image: url("Images/Icons/Controls/@{theme}/@{icon-name}-@{icon-version}.svg");
+}
+
+/* Defines the list of available icons and their versions */
+.control-icon-theme-def-list() {
+    // The list is not processed correctly when put on multiple lines with comments in-between
+    @icon-list: checkbox 0, close-dialog 0, login 0, history 0, confirmation 0, message-info 0, message-error 0, tooltip 0;
+}
+
+.control-icon-theme(@theme, @icon-name) {
+    .control-icon-theme-def-list();
+    .for(@icon-list);
+
+    .each(@item) {
+        @item-name: extract(@item, 1);
+        @item-version: extract(@item, 2);
+
+        .if(@icon-name eq @item-name);
+
+        .then() {
+            .control-icon-theme(@theme, @item-name, @item-version);
+        }
+    }
+}
+
+.control-icon-theme(@theme) {
+    .control-icon-theme-def-list();
+    .for(@icon-list);
+
+    .each(@item) {
+        @item-name: extract(@item, 1);
+        @item-version: extract(@item, 2);
+
+        &.icon-@{item-name} {
+            .control-icon-theme(@theme, @item-name, @item-version);
+        }
+    }
+}
+
+/* A class that must be applied to all icons */
+.control-icon {
+    .css-background-center-image;
+    width: 32px;
+    height: 32px;
+}
+
+/* A class that must be applied to all icons */
+.control-icon-button {
+    .css-background-center-image;
+    width: 32px;
+    height: 32px;
+
+    &:not(.disabled) {
+        cursor: pointer;
+    }
+}
+
+/* #endregion */
+
+/* #region Buttons */
+
+/* The theme of a button */
+.control-text-button-theme(@theme) {
+    .control-theme-def(@theme);
+    color: @default-text-color;
+    background-color: @default-background-color;
+    border-color: @default-border-color;
+}
+
+/* Represents a button */
+.control-text-button {
+    .css-box-sizing(border-box);
+    @height: 32px;
+    cursor: pointer;
+    width: 120px;
+    height: @height;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 11pt;
+    line-height: @height;
+    margin: 0px 10px;
+    text-align: center;
+    vertical-align: central;
+    /* The name is "default-button" instead of "default" since it is used by a dialog to locate the default button automatically. */
+    &.default-button {
+        font-weight: bold;
+    }
+}
+
+/* #endregion */
+
+/* #region Textbox */
+
+.control-textbox-theme-def(cyan) {
+    /* This theme contrasts with the rest of the controls */
+    @border-color: transparent;
+    @text-color: black;
+    @background-color: ghostwhite;
+}
+
+.control-textbox-theme-def(black) {
+    .control-theme-def(black);
+    @border-color: @default-border-color;
+    @text-color: @default-text-color;
+    @background-color: @default-background-color;
+}
+
+/* Specifies a text box theme */
+.control-textbox-theme(@theme) {
+    .control-textbox-theme-def(@theme);
+    border-color: @border-color;
+    color: @text-color;
+    background-color: @background-color;
+}
+
+/* Represents a text box */
+.control-textbox {
+    height: 24px;
+    border-width: 1px;
+    border-style: solid;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 10pt;
+}
+
+.control-textbox:focus {
+    outline-width: 0px; /* Hide border when the control is on focus */
+}
+
+/* #endregion */
+
+/* #region Checkbox */
+
+/* Specifies a checkbox theme */
+.control-checkbox-theme(@theme) {
+    .control-theme-def(@theme);
+    border-color: @default-border-color;
+    background-color: @default-background-color;
+
+    &.checked > span {
+        .control-icon-theme(@theme, checkbox);
+    }
+}
+
+/* Represents a checkbox */
+.control-checkbox(@size) {
+    & > span {
+        width: @size;
+        height: @size;
+        cursor: pointer;
+        display: inline-block;
+        box-sizing: border-box;
+        border-width: 1px;
+        border-style: solid;
+    }
+
+    &.checked > span {
+        .css-background-center-image;
+    }
+
+    & > label {
+        margin-left: 10px;
+        line-height: @size;
+        vertical-align: top;
+        height: @size;
+        cursor: pointer;
+        display: inline-block;
+    }
+}
+
+.mobile .control-checkbox {
+    .control-checkbox(20px);
+}
+
+.desktop .control-checkbox {
+    .control-checkbox(20px);
+}
+
+/* #endregion */
+
+/* #region Listbox */
+
+.control-listbox-theme-def(cyan) {
+    .control-theme-def(cyan);
+
+    @panel-text-color: @default-text-color;
+    @panel-background-color: @default-background-color;
+    @panel-border-color: @default-border-color;
+
+    @item-text-color: @default-text-color;
+    @item-background-color: @default-background-color;
+    @item-border-color: @default-border-color;
+
+    @selected-item-text-color: @item-text-color;
+    @selected-item-background-color: @item-background-color;
+    @selected-item-border-color: @item-border-color;
+
+    @disabled-item-text-color: @item-text-color;
+    @disabled-item-background-color: @item-background-color;
+    @disabled-item-border-color: @item-border-color;
+
+    @hover-item-text-color: @item-text-color;
+    @hover-item-background-color: @item-background-color;
+    @hover-item-border-color: @item-border-color;
+}
+
+.control-listbox-theme-def(black) {
+    .control-theme-def(black);
+
+    @panel-text-color: @default-text-color;
+    @panel-background-color: @default-background-color;
+    @panel-border-color: @default-border-color;
+
+    @item-text-color: @default-text-color;
+    @item-background-color: @default-background-color;
+    @item-border-color: Gray;
+
+    @selected-item-text-color: @item-text-color;
+    @selected-item-background-color: #E0E0E0;
+    @selected-item-border-color: @item-border-color;
+
+    @disabled-item-text-color: @item-text-color;
+    @disabled-item-background-color: DarkGray;
+    @disabled-item-border-color: @item-border-color;
+
+    @hover-item-text-color: @item-text-color;
+    @hover-item-background-color: #E0E0E0;
+    @hover-item-border-color: @item-border-color;
+}
+
+/* Specifies the theme of a listbox */
+.control-listbox-theme(@theme) {
+    /* Include the theme */
+    .control-listbox-theme-def(@theme);
+    /* Set properties */
+    // Main panel
+    color: @panel-text-color;
+    border-color: @panel-border-color;
+    background-color: @panel-background-color;
+    // Items
+    & > .item {
+        color: @item-text-color;
+        border-color: @item-border-color;
+        background-color: @item-background-color;
+
+        &.selected {
+            color: @selected-item-text-color;
+            border-color: @selected-item-border-color;
+            background-color: @selected-item-background-color;
+        }
+
+        &.disabled {
+            color: @disabled-item-text-color;
+            border-color: @disabled-item-border-color;
+            background-color: @disabled-item-background-color;
+        }
+
+        &:not(.disabled):hover {
+            color: @hover-item-text-color;
+            border-color: @hover-item-border-color;
+            background-color: @hover-item-background-color;
+        }
+    }
+}
+
+/* Represents a listbox */
+.control-listbox {
+    .fill-parent; // Stretch the box within its parent
+    overflow-y: auto; // Scroll items vertically if necessary
+    & > .item {
+        .center-child-vertical(); // Center the content of the item vertically
+        height: 34px; // Fit a standard icon
+        border-style: solid;
+        border-width: 1px;
+        cursor: pointer;
+        overflow: hidden;
+        margin: 1px;
+        padding: 5px;
+
+        &.selected {
+        }
+
+        &.disabled {
+        }
+
+        &:not(.disabled):hover {
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region Label */
+
+/* The theme of a label */
+.control-label-theme(@theme) {
+    .control-theme-def(@theme);
+    color: @default-text-color;
+    background-color: @default-background-color;
+    border-color: @default-border-color;
+}
+
+/* Represents a button */
+.control-label {
+    @height: 32px;
+    font-size: 10pt;
+    line-height: @height;
+    text-align: center;
+    vertical-align: central;
+}
+
+/* #endregion */
+
+/* #region Progress bar */
+
+/* The theme of the control */
+.control-progress-bar-theme(@theme) {
+    .control-theme-def(@theme);
+    background-color: #AAA;
+
+    & > .inner {
+        background-color: darkgreen;
+    }
+}
+
+/* Represents a progress bar */
+.control-progress-bar {
+    margin: 0px auto;
+    height: 2px;
+
+    & > .inner {
+        height: 100%;
+        width: 0px; /* Initial width */
+    }
+}
+
+/* #endregion */
+
+/* #region Generate themes */
+
+/* Includes the themes of all controls.
+ * This should be included within any dialog, window or other container that use controls.
+ */
+.control-theme(@theme) {
+    .theme-@{theme} {
+        .control-icon, .control-icon-button {
+            .control-icon-theme(@theme);
+        }
+
+        .control-text-button {
+            .control-text-button-theme(@theme);
+        }
+
+        .control-textbox {
+            .control-textbox-theme(@theme);
+        }
+
+        .control-checkbox {
+            .control-checkbox-theme(@theme);
+        }
+
+        .control-listbox {
+            .control-listbox-theme(@theme);
+        }
+
+        .control-label {
+            .control-label-theme(@theme);
+        }
+
+        .control-progress-bar {
+            .control-progress-bar-theme(@theme);
+        }
+    }
+}
+
+.generate-control-themes() {
+    .iter(@i: length(@theme-list)) when (@i > 0) {
+        @item: e(extract(@theme-list, @i));
+        .control-theme(@item);
+        .iter(@i - 1);
+    }
+
+    .iter;
+}
+
+.generate-control-themes();
+
+/* #endregion */

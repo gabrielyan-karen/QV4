@@ -1,0 +1,605 @@
+@import "Main.Core.less";
+@import "Main.CSS.less";
+@import "Main.Controls.less";
+@import "Main.Screen.less";
+
+/* #region Windows */
+
+/* -- Windows -- */
+
+/* Applied to the root element of a window */
+.window {
+    background-color: #1e1e24 !important;
+    position: relative;
+    /* A mobile window */
+    .app.mobile & {
+        /* Display the window over the entire screen */
+        .screen-layer;
+    }
+    /* - Title (used on mobile only) - */
+    & .window-title {
+        color: snow;
+        font-size: 10pt;
+        text-align: center;
+        line-height: 32px;
+        vertical-align: central;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    /* - Layouts - */
+    & .window-panel {
+        .css-position-absolute();
+        .css-flex(column, nowrap);
+
+        &.layout-hcf {
+            & > .header {
+                .css-order(1);
+                position: relative; /* Contain any absolute positioned elements */
+            }
+
+            & > .footer {
+                .css-order(3);
+                position: relative; /* Contain any absolute positioned elements */
+            }
+
+            & > .content {
+                .css-order(2);
+                .css-flex-grow(1);
+                .css-flex-shrink(1);
+                position: relative; /* Contain any absolute positioned elements */
+                color: #C0C0C0; /* Default color */
+                /* - Data panel - */
+                & > .data-panel {
+                    .css-position-absolute();
+                    padding: 10px;
+                    overflow-y: auto; /* Enable scrolling to handle large error messages */
+                    &.error { /* All classes: loading, error, data-not-available */
+                        color: red;
+                    }
+                }
+            }
+
+            & > .header > hr, & > .footer > hr {
+                height: 1px;
+                border-width: 0px;
+                background-color: #AAA;
+                margin: 5px 5px;
+            }
+        }
+    }
+
+    & .window-title:not(:empty) + .window-panel {
+        /* Leave space for the title if it is present */
+        top: 32px;
+    }
+}
+
+/* A class to be applied to any element that displays outdated data */
+.outdated-data {
+    background-image: url(Images/Icons/Grid/chart_background_outdated_v1.png);
+    background-repeat: repeat;
+}
+
+/* #region Controls */
+
+/* The button used to close full-screen windows on mobile devices */
+.mobile-window-close-button {
+    .image-button("Images/Icons/Common/close-window.svg", @toolbar-icon-size);
+}
+
+/* #endregion */
+
+/* #region Data windows */
+
+.data-window {
+    .layout-hcf {
+        & > .header, & > .footer {
+            background-color: black;
+            padding: 2px;
+        }
+        /* // TODO DEPRECATED - Remove
+        & > .header {
+            .window-title {
+                color: snow;
+                font-size: 10pt;
+                text-align: center;
+                line-height: 32px;
+                vertical-align: central;
+                white-space: nowrap;
+            }
+        }
+        */
+    }
+}
+
+/* #region Extended chart */
+
+.drawdown-tooltip {
+    font-size: 8pt;
+
+    .title {
+        text-align: center;
+        margin-bottom: 5px;
+    }
+
+    table {
+        th, td {
+            text-align: right;
+            padding-left: 4px;
+            padding-right: 4px;
+        }
+    }
+}
+
+.extended-chart {
+    & .stats-bar {
+        .css-flex(row, wrap);
+        .css-justify-content(center);
+        .css-align-content(center);
+        .css-align-items(center);
+        font-size: 7pt;
+        font-family: Sans-Serif, Tahoma;
+        color: #EEE;
+        background-color: Black;
+        padding: 2px 5px 2px 5px;
+        border: 1px solid transparent;
+        /* Hide the bar if empty */
+        &:empty {
+            display: none;
+        }
+        /* When the chart is zoomed the border of the bar should be yellow */
+        &.zoomed {
+            border-color: yellow;
+        }
+
+        & > .panel {
+            white-space: normal;
+        }
+
+        & > .item {
+            white-space: nowrap;
+            display: inline-block;
+            margin-left: 5px;
+            margin-right: 5px;
+
+            & > .value {
+                color: yellow;
+            }
+        }
+        /* Shows a message related to benchmarks */
+        & > .message {
+            color: #FFA500;
+        }
+        /* A horizontal line can be used to divide the stats to multiple lines */
+        & > hr {
+            height: 1px;
+            border-width: 0px;
+            background-color: #AAA;
+            margin-left: 15px;
+            margin-right: 15px;
+            width: 100%; /* Stretch the line */
+        }
+    }
+
+    & .menu-button {
+        .image-button("Images/Icons/Charts/menu.svg", @toolbar-icon-size);
+    }
+
+    & .select-series-button {
+        .image-button("Images/Icons/Charts/select-series.svg", @toolbar-icon-size);
+    }
+
+    & .unit-button.percentage {
+        .image-button("Images/Icons/Charts/unit-percentage.svg", @toolbar-icon-size);
+
+        &.disabled {
+            .image-button-url("Images/Icons/Charts/unit-percentage-disabled.svg");
+        }
+    }
+
+    & .unit-button.currency.usd {
+        .image-button("Images/Icons/Charts/unit-currency-usd.svg", @toolbar-icon-size);
+
+        &.disabled {
+            .image-button-url("Images/Icons/Charts/unit-currency-usd-disabled.svg");
+        }
+    }
+
+    & .unit-button.currency.eur {
+        .image-button("Images/Icons/Charts/unit-currency-eur.svg", @toolbar-icon-size);
+
+        &.disabled {
+            .image-button-url("Images/Icons/Charts/unit-currency-eur-disabled.svg");
+        }
+    }
+
+    & .chart-type-button.line {
+        .image-button("Images/Icons/Charts/line-chart.svg", @toolbar-icon-size);
+    }
+
+    & .chart-type-button.bar {
+        .image-button("Images/Icons/Charts/bar-chart.svg", @toolbar-icon-size);
+    }
+
+    & .benchmarks-view-mode-button {
+        .image-button("Images/Icons/Charts/benchmarks-show.svg", @toolbar-icon-size);
+
+        &.hide-benchmarks {
+            .image-button("Images/Icons/Charts/benchmarks-hide.svg", @toolbar-icon-size);
+        }
+    }
+
+    & .data-view-mode-button {
+        &.returns {
+            .image-button("Images/Icons/Charts/data-returns.svg", @toolbar-icon-size);
+
+            &.disabled {
+                .image-button-url("Images/Icons/Charts/data-returns-disabled.svg");
+            }
+        }
+
+        &.drawdown {
+            .image-button("Images/Icons/Charts/data-drawdown.svg", @toolbar-icon-size);
+
+            &.disabled {
+                .image-button-url("Images/Icons/Charts/data-drawdown-disabled.svg");
+            }
+        }
+
+        &.slippage {
+            .image-button("Images/Icons/Charts/data-slippage.svg", @toolbar-icon-size);
+
+            &.disabled {
+                .image-button-url("Images/Icons/Charts/data-slippage-disabled.svg");
+            }
+        }
+    }
+
+    & .y-axis-overlay {
+        z-index: 1; /* Must be displayed over the chart */
+        position: absolute;
+        top: 20px;
+        left: 5px;
+        bottom: 20px;
+        width: 40px;
+        cursor: pointer;
+    }
+
+    & .chart {
+        .css-position-absolute(5px, 10px, 5px, 10px);
+    }
+
+    & .reset-zoom-button {
+        position: absolute;
+        background-image: url(Images/Icons/Charts/nav-reset-zoom-2.png);
+        background-position: left;
+        background-repeat: no-repeat;
+        height: 21px;
+        width: 64px;
+        cursor: pointer;
+        right: 14px;
+        top: 46px;
+        z-index: 2; /* Must be below menus that have z-index 10 */
+        color: White;
+    }
+}
+
+/* #endregion */
+
+/* #region Top/bottom markets */
+
+.top-bottom-markets {
+    & > table.list {
+        th {
+            color: #FFE720;
+            padding-bottom: 5px;
+
+            &.column {
+                text-align: right;
+                .interactive-element();
+
+                &.active {
+                    color: white;
+                }
+            }
+        }
+
+        td:not(:first-child) {
+            text-wrap: none;
+            white-space: nowrap;
+            text-align: right;
+            padding-left: 10px;
+        }
+
+        tr.total {
+            font-weight: bold;
+            border-top: 1px solid gray;
+        }
+
+        tr.total {
+            font-weight: bold;
+            border-top: 1px solid gray;
+        }
+
+        tr.separator {
+            height: 10px;
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region Row statistics */
+
+.row-statistics {
+    .matrix {
+        .css-position-absolute(10px, 10px, 10px, 10px);
+    }
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region Old styles */
+
+/* -- Old styles -- */
+
+/* Applied to the root element of a window */
+.ui-window {
+    background-color: #1e1e24 !important;
+    position: relative;
+}
+
+.mobile .ui-window {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/* The main content of the window */
+.ui-window > .content {
+    /* Top and bottom margins DOES NOT work (the margin is applied to the parent div) for a div inside another div
+         * if the parent div does not have any content. Also using "height: 100%" may cause issues. Therefore, it is best
+         * to use abosolute positioning.
+         */
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+}
+
+.ui-window > .content table {
+    color: #C0C0C0; /* Default color */
+}
+
+.ui-window > .content.scrollable {
+    overflow: scroll;
+    padding-right: 5px; /* Add some space between the scroll bar and the content - important on iOS Safari */
+}
+
+/* #region iPhone Scrollbar */
+/* Reference: http://cssdeck.com/labs/css3-webkit-vertical-scrollbars/ */
+
+.app.mobile .ui-window > .content.scrollable::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 2px;
+    background-color: #404040;
+}
+
+.app.mobile .ui-window > .content.scrollable::-webkit-scrollbar-track {
+    border-radius: 2px;
+    background-color: #404040;
+}
+
+.app.mobile .ui-window > .content.scrollable::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: #C0C0C0;
+}
+/* #endregion iPhone Scrollbar */
+
+.app.mobile .ui-window {
+}
+
+.app.desktop .ui-window {
+}
+
+.ui-window {
+    /* - Controls - */
+    .button-next {
+        border: 1px dotted #A0A0A0;
+        cursor: pointer;
+        background-image: url(Images/Icons/Charts/next_full_screen_chart.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        min-height: 20px; /* In case a descendant changes the width/height to 'auto' */
+        min-width: 20px; /* In case a descendant changes the width/height to 'auto' */
+        cursor: pointer;
+        z-index: 9; /* Must be below menus that have z-index 10 */
+    }
+
+    .button-prev {
+        border: 1px dotted #A0A0A0;
+        cursor: pointer;
+        background-image: url(Images/Icons/Charts/prev_full_screen_chart.png);
+        background-position: center center;
+        background-repeat: no-repeat;
+        height: 20px;
+        width: 20px;
+        min-height: 20px; /* In case a descendant changes the width/height to 'auto' */
+        min-width: 20px; /* In case a descendant changes the width/height to 'auto' */
+        cursor: pointer;
+        z-index: 9; /* Must be below menus that have z-index 10 */
+    }
+
+    .button-next-text, .button-prev-text {
+        color: #FFE720;
+        line-height: 20px;
+        vertical-align: middle;
+    }
+}
+
+/* -- Top markets -- */
+
+/* Fill the space of the parent container */
+.ui-window > .content.top-markets {
+    background-color: #1e1e24;
+    font-size: 8pt;
+    color: White;
+}
+
+.ui-window > .content.top-markets > .header {
+}
+
+.ui-window > .content.top-markets > .header > div {
+}
+
+.ui-window > .content.top-markets > .header > div:not(:first-child) {
+}
+
+/* - Chart view - */
+
+.ui-window > .content.top-markets.chart-view > .header {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 15px;
+}
+
+.ui-window > .content.top-markets.chart-view > .header > div:nth-child(1) {
+    float: left;
+}
+
+.ui-window > .content.top-markets.chart-view > .header > div:nth-child(2) {
+    float: left;
+    margin-left: 10px;
+}
+
+.ui-window > .content.top-markets.chart-view > .footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 15px;
+    text-align: center;
+}
+
+.ui-window > .content.top-markets.chart-view > .market-chart-list {
+    position: absolute;
+    top: 15px;
+    bottom: 15px;
+    left: 0px;
+    right: 0px;
+}
+
+/* Displays the top 10 best/worst markets. */
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart {
+    .css-box-sizing(border-box);
+    /* Use padding instead of margin since padding is included in the size of the element. On mobile devices the size of the element is set explicitly in code to occupy 50% of the height of the available vertical space. */
+    padding: 5px 5px 0px 5px;
+    height: 50%;
+    position: relative;
+}
+
+/* The title of the market chart. */
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart > .header {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    height: 20px;
+    font-size: 8pt;
+    font-family: Helvetica, Arial;
+}
+
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart > .header > div {
+    float: right;
+}
+
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart > .header > div:not(:first-child) {
+    margin-right: 10px;
+}
+
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart > .header > div.button-unit {
+    float: left;
+    margin-right: 0px;
+    vertical-align: middle;
+    text-align: center;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 10pt;
+}
+
+/* The content of the market chart. */
+.ui-window > .content.top-markets.chart-view > .market-chart-list > .market-chart > .content {
+    position: absolute; /* Using absolute positioning causes fewer issues than height: 100% */
+    top: 30px;
+    bottom: 5px;
+    left: 0px;
+    right: 10px;
+}
+
+/* - List view - */
+
+.ui-window > .content.top-markets.list-view > .header {
+    margin-bottom: 10px;
+    height: 20px;
+}
+
+.ui-window > .content.top-markets.list-view > .header > div:nth-child(1) {
+    float: right;
+}
+
+.ui-window > .content.top-markets.list-view > .header > div:nth-child(2) {
+    float: right;
+    margin-right: 10px;
+}
+
+.ui-window > .content.top-markets.list-view > .header > div:nth-child(3) {
+    float: left;
+}
+
+.ui-window > .content.top-markets.list-view > .header > div:nth-child(4) {
+    float: left;
+    margin-right: 10px;
+}
+
+.ui-window > .content.top-markets.list-view > table.list {
+}
+
+.ui-window > .content.top-markets.list-view > table.list th {
+    color: #FFE720;
+    padding-bottom: 5px;
+}
+
+.ui-window > .content.top-markets.list-view > table.list td:not(:first-child) {
+    text-wrap: none;
+    white-space: nowrap;
+    text-align: right;
+    padding-left: 10px;
+}
+
+.ui-window > .content.top-markets.list-view > table.list tr.total {
+    font-weight: bold;
+    border-top: 1px solid gray;
+}
+
+.ui-window > .content.top-markets.list-view > table.list tr.total {
+    font-weight: bold;
+    border-top: 1px solid gray;
+}
+
+.ui-window > .content.top-markets.list-view > table.list tr.separator {
+    height: 10px;
+}
+
+/* #endregion */

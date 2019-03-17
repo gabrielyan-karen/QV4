@@ -1,0 +1,136 @@
+﻿/*
+    This files contains various mix-ins to help work with LessCSS.
+
+    Various less mix-ins similar to functons (if, for, loops, indexof, etc.): 
+        https://github.com/pixelass/more-or-less/tree/master/less/fn
+*/
+
+/* #region foreach */
+
+.for(@array) {
+    // A public "each" method is used
+    .for(@array, {});
+}
+
+.for(@array, @callback) {
+    @callback(); // Define "each" method
+
+    .-iter(@i) when (@i > 0) {
+        .each(extract(@array, @i));
+        .-iter(@i - 1);
+    }
+
+    .-iter(length(@array));
+}
+
+/* #endregion foreach */
+
+/* #region if */
+
+/* 
+    Based on: https://github.com/pixelass/more-or-less/blob/master/less/fn/if/_export.less 
+    Docs: https://github.com/pixelass/more-or-less/tree/master/less/fn/if
+*/
+
+/*
+    - Documentation -
+
+    The "if" method can be used in the following ways:
+
+    .if (condition); .then() { ... };
+    .if (condition); .then() { ... }; .else() { ... };
+
+    .if (condition, {
+        .then() {
+        }
+    });
+    
+    .if (condition, {
+        .then() {
+        }
+        .else() {
+        }
+    });
+*/
+
+.if(@condition) {
+    // Public "then" and "else" methods are used
+    .if (@condition, {
+    }
+
+    );
+}
+
+.if(@condition, @callback) when (@condition = true) {
+    // Create "then" method
+    @callback
+    ();
+    .then();
+}
+
+.if(@expression, @callback) when (default()) {
+    // Define a default "else" method if one is not defined by the callback
+    .else(...) {
+    }
+
+    @callback
+    (); // Create the "then" and "else" methods
+
+    @one: extract(@expression, 1);
+    @operator: extract(@expression, 2);
+    @two: extract(@expression, 3);
+
+    .-operator(lt) {
+        & when (@one < @two) {
+            .then();
+        }
+
+        & when not (@one < @two) {
+            .else();
+        }
+    }
+
+    .-operator(lte) {
+        & when (@one <= @two) {
+            .then();
+        }
+
+        & when not(@one <= @two) {
+            .else();
+        }
+    }
+
+    .-operator(gt) {
+        & when (@one > @two) {
+            .then();
+        }
+
+        & when not(@one > @two) {
+            .else();
+        }
+    }
+
+    .-operator(gte) {
+        & when (@one >= @two) {
+            .then();
+        }
+
+        & when not(@one >= @two) {
+            .else();
+        }
+    }
+
+    .-operator(eq) {
+        & when (@one = @two) {
+            .then();
+        }
+
+        & when not(@one = @two) {
+            .else();
+        }
+    }
+
+    .-operator(@operator);
+}
+
+/* #endregion */

@@ -1,0 +1,24 @@
+@import "Main.Core.less";
+@import "Main.CSS.less";
+
+/* #region Themes */
+
+@theme-list: "cyan", "black";
+
+/* // Calling a mixin dynamically is not supproted
+.generate-themes(@callback) {
+    @theme-list: "cyan", "blue";
+
+    .iter(@i: length(@theme-list)) when (@i > 0) {
+        @item: e(extract(@theme-list, @i));
+
+        @{callback}(@item);
+
+        .iter(@i - 1);
+    }
+
+    .iter;
+}
+*/
+
+/* #endregion */

@@ -1,0 +1,3042 @@
+﻿/*** jQuery UI ***/
+
+.ui-widget {
+    font-size: 8pt !important;
+}
+
+div.ui-tooltip {
+    max-width: 500px !important;
+}
+
+body.full_screen {
+    /* The background of the application is the black */
+    background-color: black;
+}
+
+.hidden {
+    display: none;
+}
+
+/* The element takes space but is not visible */
+.invisible {
+    visibility: hidden;
+}
+
+/*** Application ***/
+
+.app {
+    overflow-x: hidden !important; /* !important is required to override the jQM nonsense */
+    overflow-y: scroll !important; /* !important is required to override the jQM nonsense */
+    height: 100vh;
+}
+
+/* Fast scrolling must be disabled on iOS Chrome since it causes serious bugs to occur */
+.app:not(.fast-scrolling-disabled-permanent):not(.fast-scrolling-disabled) {
+    -webkit-overflow-scrolling: touch; /* Enable fast scrolling in iOS Safari */
+}
+
+/*** Grid ***/
+
+/* Table */
+.table {
+    float: left;
+    background-color: Black;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    padding: 1px;
+}
+
+/* Table on a mobile device */
+.app.mobile .table {
+    /* Remove left and right padding on mobile devices - looks better */
+    padding: 1px 0px 1px 0px;
+}
+
+.app.mobile .table * {
+    /* Disable text shadow set by JQM */
+    text-shadow: none !important;
+}
+
+.app.mobile .full_screen_chart * {
+    /* Disable text shadow set by JQM */
+    text-shadow: none !important;
+}
+
+/* Table on a desktop machine */
+.app.desktop .table {
+}
+
+/** Header **/
+
+/* Fix the header at the top on desktop and mobile */
+.table > .header_row {
+    /* Since there are 2 transparent pixels at the top of the table a chart row can become partically visible through them
+     * when the page is scrolled down. The next 3 lines are used to apply black background to conceal them.
+     */
+    clear: both;
+    background-color: Black;
+    margin-top: -10px;
+    padding-top: 10px;
+    position: fixed;
+    z-index: 1;
+    white-space: nowrap; /* Disable wrapping of cells and columns */
+}
+
+/* User */
+
+.table > .header_row > .user_cell {
+    /* Enable positioning for absolute elements */
+    cursor: pointer;
+    position: relative;
+    margin: 1px; /* Align elements in a table-like layout */
+    /* float: left; /* Align elements in a table-like layout */
+    display: inline-block; /* Since the element is an inline-block "the "white-space" attribute can be used to prevent transition to the next line */
+    background: #9b9b9b; /* Old browsers */
+    background: -moz-linear-gradient(top, #00006E 0%, #00006E 50%, #00006E 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#00006E), color-stop(50%,#00006E), color-stop(100%,#00006E)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #00006E 0%,#00006E 50%,#00006E 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #00006E 0%,#00006E 50%,#00006E 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #00006E 0%,#00006E 50%,#00006E 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #00006E 0%,#00006E 50%,#00006E 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00006E', endColorstr='#00006E',GradientType=0 ); /* IE6-9 */
+    font-family: Helvetica, Arial;
+    font-size: 8pt;
+    color: white;
+}
+
+.app.mobile .table > .header_row > .user_cell {
+    /* On a mobile device the table starts at pixel zero */
+    margin-left: 0px;
+    position: relative;
+}
+
+.table > .header_row > .user_cell > .connection {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.table > .header_row > .user_cell > .connection.downloading {
+    width: 24px;
+    height: 32px;
+    background-image: url("Images/Icons/Grid/downloading-light.gif");
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.table > .header_row > .user_cell > .connection.downloading .text {
+    margin-top: 20px;
+    font-size: 7pt;
+    color: #ffe720;
+    text-align: center;
+}
+
+.table > .header_row > .user_cell > .connection.disconnected {
+    width: 24px;
+    height: 24px;
+    background-image: url("Images/Icons/Grid/no-connection-24x24.png");
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.table > .header_row > .user_cell > .user_name_label {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: #ffe720; /* Yellow */
+    font-size: 8pt;
+    font-weight: bold;
+}
+
+.table > .header_row > .user_cell > .version_label {
+    position: absolute;
+    left: 4px;
+    bottom: 0px;
+    color: #ffe720; /* Yellow */
+    font-size: 7pt;
+}
+
+.table > .header_row > .user_cell > .category_label {
+    /* Yellow */
+    color: #ffe720;
+    font-size: 8pt;
+    font-weight: bold;
+    position: absolute;
+    top: 4px; /* Make space for the user name */
+    left: 40px;
+    right: 40px;
+    text-align: center;
+}
+
+.table > .header_row > .user_cell > .category_label sub,
+.table > .header_row > .user_cell > .category_label sup {
+    font-size: 6pt;
+}
+
+.table > .header_row > .user_cell > .sub_category_label {
+    /* Yellow */
+    color: #ffe720;
+    font-size: 8pt;
+    font-weight: bold;
+    position: absolute;
+    top: 20px;
+    left: 8px;
+    right: 8px;
+    text-align: center;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* A menu is opened when the label is clicked on desktop in minimized mode so display a border around it */
+.app.desktop.minimized .table > .header_row > .user_cell > .category_label {
+}
+
+.table > .header_row > .user_cell > .history_data_size {
+    color: white;
+    font-size: 7pt;
+    position: absolute;
+    bottom: 0px;
+    left: 8px;
+    right: 8px;
+    text-align: center;
+}
+
+.table > .header_row > .user_cell > .minimize_button {
+    right: 0px;
+    top: 0px;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    cursor: pointer;
+    background-image: url(Images/Icons/Grid/minimize_minimize.png);
+    background-repeat: no-repeat;
+    background-position: right 6px top 6px;
+}
+
+.table > .header_row > .user_cell > .main_menu_button {
+    width: 16px;
+    height: 16px;
+    left: 0px;
+    bottom: 0px;
+    position: absolute;
+    cursor: pointer;
+    background-image: url(Images/Icons/Grid/main_menu_open.png);
+    background-repeat: no-repeat;
+    background-position: left 4px bottom 4px;
+}
+
+.table.new_version > .header_row > .user_cell > .main_menu_button {
+    background-image: url(Images/Icons/Grid/main_menu_open_new_version.png);
+    background-repeat: no-repeat;
+}
+
+/* User - minimized */
+
+.app.minimized .table > .header_row > .user_cell > .category_label {
+    /* Opens a menu when clicked */
+    cursor: pointer;
+}
+
+.app.minimized .table > .header_row > .user_cell > .sub_category_label {
+    /* Opens a menu when clicked */
+    cursor: pointer;
+}
+
+.app.minimized .table > .header_row > .user_cell > .minimize_button {
+    background-image: url(Images/Icons/Grid/minimize_restore.png);
+    background-repeat: no-repeat;
+}
+
+/* Column headers */
+
+.table > .header_row > .column_header_panel {
+    margin: 1px; /* Align elements in a table-like layout */
+    /* float: left; /* Align elements in a table-like layout */
+    display: inline-block; /* Since the element is an inline-block "the "white-space" attribute can be used to prevent transition to the next line */
+    white-space: nowrap; /* Disable wrapping of cells and columns */
+}
+
+.app.mobile .table > .header_row > .column_header_panel {
+    /* On a mobile device the table fills the screen horizontally */
+    margin-right: 0px;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell {
+    /* Align elements in a table-like layout */
+    float: left;
+    font-family: Helvetica, Arial;
+    position: relative; /* A context menu is displayed when the cell is clicked */
+    cursor: pointer;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 13px;
+    color: white; /* Include border width in size */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: 1px solid #b5b5b5;
+    border-right-width: 0px;
+    background-image: -moz-linear-gradient(top, #505050 1%, #505050 50%, #505050 99%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#505050), color-stop(50%,#505050), color-stop(99%,#505050)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #505050 1%,#505050 50%,#505050 99%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, #505050 1%,#505050 50%,#505050 99%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, #505050 1%,#505050 50%,#505050 99%); /* IE10+ */
+    background-image: linear-gradient(to bottom, #505050 1%,#505050 50%,#505050 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#505050', endColorstr='#505050',GradientType=0 ); /* IE6-9 */
+}
+
+/* // This is set in code since the last visible 
+.table > .header_row > .column_header_panel > .column_header_cell:last-child > .top_panel
+{
+    border-right-width: 1px;
+}
+*/
+
+.table > .header_row > .column_header_panel > .column_header_cell.positive_performance > .top_panel {
+    color: white; /* Include border width in size */
+    border-color: #28d71f;
+    background-image: -moz-linear-gradient(top, #098b01 1%, #098b01 50%, #098b01 99%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#098b01), color-stop(50%,#098b01), color-stop(99%,#098b01)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #098b01 1%,#098b01 50%,#098b01 99%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, #098b01 1%,#098b01 50%,#098b01 99%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, #098b01 1%,#098b01 50%,#098b01 99%); /* IE10+ */
+    background-image: linear-gradient(to bottom, #098b01 1%,#098b01 50%,#098b01 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#098b01', endColorstr='#098b01',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.negative_performance > .top_panel {
+    color: white; /* Include border width in size */
+    border-color: #ff6a6a;
+    background-image: -moz-linear-gradient(top, #be0906 1%, #be0906 50%, #be0906 99%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#be0906), color-stop(50%,#be0906), color-stop(99%,#be0906)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #be0906 1%,#be0906 50%,#be0906 99%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, #be0906 1%,#be0906 50%,#be0906 99%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, #be0906 1%,#be0906 50%,#be0906 99%); /* IE10+ */
+    background-image: linear-gradient(to bottom, #be0906 1%,#be0906 50%,#be0906 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#be0906', endColorstr='#be0906',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.complete_value > .top_panel {
+    color: white; /* Include border width in size */
+    border-color: #42b4e6;
+    background-image: -moz-linear-gradient(top, #1947ee 1%, #1947ee 50%, #1947ee 99%); /* FF3.6+ */
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#1947ee), color-stop(50%,#1947ee), color-stop(99%,#1947ee)); /* Chrome,Safari4+ */
+    background-image: -webkit-linear-gradient(top, #1947ee 1%,#1947ee 50%,#1947ee 99%); /* Chrome10+,Safari5.1+ */
+    background-image: -o-linear-gradient(top, #1947ee 1%,#1947ee 50%,#1947ee 99%); /* Opera 11.10+ */
+    background-image: -ms-linear-gradient(top, #1947ee 1%,#1947ee 50%,#1947ee 99%); /* IE10+ */
+    background-image: linear-gradient(to bottom, #1947ee 1%,#1947ee 50%,#1947ee 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1947ee', endColorstr='#1947ee',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.outdated > .top_panel {
+    background-color: #6c6c6c;
+    background-image: url(Images/Icons/Grid/chart_header_outdated.png);
+    background-repeat: repeat;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.positive_performance.outdated > .top_panel {
+    background-color: #09a700; /* The linear gradient is considered an image so a solid color should be set instead */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.negative_performance.outdated > .top_panel {
+    background-color: #d70301; /* The linear gradient is considered an image so a solid color should be set instead */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .data-recency {
+    font-size: 7pt;
+    position: absolute;
+    left: 3px;
+    bottom: 0px;
+    white-space: nowrap;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel {
+    position: absolute;
+    top: 50%;
+    margin-top: -16px;
+    left: 8px;
+    right: 8px;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel > .title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 11pt;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel > .sub_title {
+    font-weight: bold;
+    text-align: center;
+    font-size: 8pt;
+    margin: 0px auto;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel > .sub_title > span {
+    /* Inherit the background color of the header */
+    padding: 0px 3px;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel > .sub_title.positive_performance > span {
+    background-color: #09a700;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .title_panel > .sub_title.negative_performance > span {
+    background-color: #e40301;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .chart_mode_button {
+    right: 2px;
+    bottom: 2px;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    cursor: pointer;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .chart_mode_button.cumulative {
+    background-image: url(Images/Icons/Grid/chart_mode_line.png);
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .chart_mode_button.difference {
+    background-image: url(Images/Icons/Grid/chart_mode_bar.png);
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .chart_mode_button.stats {
+    background-image: url(Images/Icons/Grid/chart_mode_stats_v2.png);
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .progress-bar.stats {
+    position: absolute;
+    bottom: 2px;
+    left: 30px;
+    right: 30px;
+    height: 2px;
+    background-color: #AAA;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .top_panel > .progress-bar.stats > .inner {
+    height: 100%;
+    background-color: Blue;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .x_axis {
+    position: absolute;
+    height: 13px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    color: Black;
+    font-size: 7pt;
+    font-family: Tahoma, Helvetica, Arial; /* Tahoma is not supported on some or all iOS versions */
+    box-sizing: border-box; /* Include border width in size */
+    -moz-box-sizing: border-box;
+    border: 1px solid #ffbd17;
+    background: -moz-linear-gradient(left, #ff9635 0%, #ff9635 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff9635), color-stop(100%,#ff9635)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #ff9635 0%,#ff9635 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #ff9635 0%,#ff9635 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #ff9635 0%,#ff9635 100%); /* IE10+ */
+    background: linear-gradient(to right, #ff9635 0%,#ff9635 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff9635', endColorstr='#ff9635',GradientType=1 ); /* IE6-9 */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .x_axis > .title {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 20px; /* Above the y-axis */
+    text-align: center;
+    overflow: hidden;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list {
+    position: absolute;
+    left: 20px; /* Space for the y-axis */
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+}
+
+.table.no_y_axis > .header_row > .column_header_panel > .column_header_cell > .x_axis > .title {
+    display: none; /* No space for the title */
+}
+
+.table.no_y_axis > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list {
+    left: 0px; /* The y-axis is not visible */
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list > .item {
+    display: inline-block;
+    text-align: center;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list > .item.duration {
+    color: #0000FF;
+}
+
+/* Activates when the top row is not visible due to scrolling on a mobile device */
+.table.top_row_not_visible > .header_row > .column_header_panel > .column_header_cell > .x_axis {
+    /* Change the background to indicate that the values displayed in the header are not in sync with the row visible at the top */
+    background: #ff5050;
+}
+
+/* Activates when the top row is not visible due to scrolling on a mobile device */
+.table.top_row_not_visible > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list > .item {
+    color: White;
+}
+
+/* Activates when the top row is not visible due to scrolling on a mobile device */
+.table.top_row_not_visible > .header_row > .column_header_panel > .column_header_cell > .x_axis > .item_list > .item.duration {
+    color: Yellow;
+}
+
+/* Hide sub-title */
+
+.table > .header_row > .column_header_panel > .column_header_cell.no_sub_title > .top_panel > .title_panel {
+    margin-top: -9px;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.no_sub_title > .top_panel > .title_panel > .sub_title {
+    display: none;
+}
+
+/* Hide X-axis */
+
+.table > .header_row > .column_header_panel > .column_header_cell.no_x_axis > .top_panel {
+    /* Fill with the cell with the top panel */
+    bottom: 0px;
+}
+
+.table > .header_row > .column_header_panel > .column_header_cell.no_x_axis > .x_axis {
+    /* Hide the axis */
+    display: none;
+}
+
+/* Grid - minimized */
+
+/* Hide the x-axis while the application is minimized */
+.app.minimized .table > .header_row > .column_header_panel > .column_header_cell > .top_panel {
+    /* Fill with the cell with the top panel */
+    bottom: 0px;
+}
+
+.app.minimized .table > .header_row > .column_header_panel > .column_header_cell > .x_axis {
+    /* Hide the axis */
+    display: none;
+}
+
+/* Tooltip */
+
+.column_header_tooltip {
+}
+
+.column_header_tooltip td.header {
+    font-weight: bold;
+}
+
+.column_header_tooltip td.positive_performance {
+    color: green;
+}
+
+.column_header_tooltip td.negative_performance {
+    color: red;
+}
+
+/** Charts **/
+
+.table > .chart_row_panel {
+    position: relative; /* Must have relative position to correctly position scroll indicators on mobile */
+    z-index: 0; /* Establish a z-index scope (must have position and z-index) */
+}
+
+.table > .chart_row_panel > .chart_row {
+    clear: both;
+    position: relative; /* Rows must have position set in order for z-index to work on them */
+    white-space: nowrap; /* Disable wrapping of cells and columns */
+}
+
+/** Header **/
+
+.table > .chart_row_panel > .chart_row > .chart_row_header {
+    font-family: Helvetica, Arial;
+    position: relative;
+    margin: 1px;
+    /* float: left; /* Align elements in a table-like layout */
+    display: inline-block; /* Since the element is an inline-block "the "white-space" attribute can be used to prevent transition to the next line */
+    color: Black;
+}
+
+/* Connect a fund row and its associated chart row with a solid line */
+.table > .chart_row_panel > .chart_row.benchmark > .chart_row_header {
+    margin-top: -1px;
+    border-top: 2px solid #ffaa0c;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .row_connector {
+    display: none;
+    position: absolute;
+    bottom: -9px;
+    left: 0px;
+    right: 0px;
+    height: 16px;
+    background-image: url(Images/Icons/Grid/benchmark-row.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+/** Company colors **/
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_F,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_F_UB,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_S,
+.table > .chart_row_panel > .chart_row > .chart_row_header.Rimu_Capital,
+.table > .chart_row_panel > .chart_row > .chart_row_header.RIMU {
+    background: -moz-linear-gradient(top, #ffd079 1%, #ffd079 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ffd079), color-stop(99%,#ffd079)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffd079 1%,#ffd079 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffd079 1%,#ffd079 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffd079 1%,#ffd079 99%); /* IE10+ */
+    background: linear-gradient(to bottom, #ffd079 1%,#ffd079 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffd079', endColorstr='#ffd079',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.BM {
+    background: -moz-linear-gradient(top, #C0C0C0 1%, #C0C0C0 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#C0C0C0), color-stop(99%,#C0C0C0)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #C0C0C0 1%,#C0C0C0 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #C0C0C0 1%,#C0C0C0 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #C0C0C0 1%,#C0C0C0 99%); /* IE10+ */
+    background: linear-gradient(to bottom, #C0C0C0 1%,#C0C0C0 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#C0C0C0', endColorstr='#C0C0C0',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.ILQ {
+    background: -moz-linear-gradient(top, #ff8698 1%, #ff8698 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#ff8698), color-stop(99%,#ff8698)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ff8698 1%,#ff8698 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ff8698 1%,#ff8698 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ff8698 1%,#ff8698 99%); /* IE10+ */
+    background: linear-gradient(to bottom, #ff8698 1%,#ff8698 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8698', endColorstr='#ff8698',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.FE,
+.table > .chart_row_panel > .chart_row > .chart_row_header.FairEdge {
+    background: -moz-linear-gradient(top, #89E894 1%, #89E894 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#89E894), color-stop(99%,#89E894)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #89E894 1%,#89E894 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #89E894 1%,#89E894 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #89E894 1%,#89E894 99%); /* IE10+ */
+    background: linear-gradient(to bottom, #89E894 1%,#89E894 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#89E894', endColorstr='#89E894',GradientType=0 ); /* IE6-9 */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.ION {
+    background: -moz-linear-gradient(top, #6495ed 1%, #6495ed 99%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#6495ed), color-stop(99%,#6495ed)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #6495ed 1%,#6495ed 99%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #6495ed 1%,#6495ed 99%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #6495ed 1%,#6495ed 99%); /* IE10+ */
+    background: linear-gradient(to bottom, #6495ed 1%,#6495ed 99%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6495ed', endColorstr='#6495ed',GradientType=0 ); /* IE6-9 */
+}
+
+/* A handle to drag a row up and down */
+.table > .chart_row_panel > .chart_row.sortable > .chart_row_header > .drag_handle {
+    cursor: url(Images/Icons/up_down.cur), s-resize;
+    position: absolute;
+    top: 0px;
+    left: 35px;
+    right: 30px;
+    bottom: 50%;
+    margin-bottom: 20px; /* Avoid displaying the cursor over the name of the sub-category */
+}
+
+.app.mobile .table > .chart_row_panel > .chart_row > .chart_row_header {
+    /* On a mobile device the table starts at pixel zero */
+    margin-left: 0px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .category_label {
+    /* Opens a menu when clicked */
+    font-weight: bold;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    font-size: 12pt;
+    padding: 0px 2px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .category_label sub,
+.table > .chart_row_panel > .chart_row > .chart_row_header > .category_label sup {
+    font-size: 7pt;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .sub_category_label {
+    /* Opens a menu when clicked */
+    cursor: pointer;
+    font-size: 8pt;
+    font-weight: bold;
+    text-align: center;
+    position: absolute; /* Center the element inside the parent */
+    top: 50%;
+    margin-top: -8px;
+    left: 8px;
+    right: 8px;
+    height: 15px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .sub_category_label > .text {
+    border: 1px dotted #A0A0A0;
+    padding: 0px 1px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_F > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_F_UB > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QR_S > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.QRFutures > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.Rimu_Capital > .sub_category_label > .text,
+.table > .chart_row_panel > .chart_row > .chart_row_header.RIMU > .sub_category_label > .text {
+    border-color: #d8a74f;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.ILQ > .sub_category_label > .text {
+    border-color: #cb7783;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.FE > .sub_category_label > .text {
+    border-color: #54cc54;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.ION > .sub_category_label > .text {
+    border-color: #6a86ba;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header.BM > .sub_category_label > .text {
+    border-color: #a6a6a6;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .base_currency_label {
+    font-size: 7pt;
+    text-align: center;
+    position: absolute; /* Center the element inside the parent */
+    left: 8px;
+    bottom: 24px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .data_recency_label {
+    font-size: 7pt;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    margin-top: 8px;
+    left: 8px;
+    right: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    padding: 2px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .data_recency_label.outdated {
+    color: Red;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .positions {
+    font-size: 7pt;
+    position: absolute;
+    bottom: -1px;
+    right: 2px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .positions.loading {
+    width: 16px;
+    height: 16px;
+    bottom: 2px;
+    right: 2px;
+    background-image: url("Images/Icons/Grid/loading-small-v4.svg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .positions > .short {
+    color: Red;
+    text-align: right;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .positions > .long {
+    color: #006000;
+    text-align: right;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .positions > .net {
+    color: black;
+    text-align: right;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .shape {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header > .favorite {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 10px;
+    height: 10px;
+    background-image: url(Images/Icons/Grid/favorite.png);
+    background-repeat: no-repeat;
+}
+
+/** Charts **/
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel {
+    margin: 1px; /* Align elements in a table-like layout */
+    /* float: left; /* Align elements in a table-like layout */
+    display: inline-block; /* Since the element is an inline-block "the "white-space" attribute can be used to prevent transition to the next line */
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border: solid 1px #ffaa0c;
+    white-space: nowrap; /* Disable wrapping of cells to multiple lines */
+}
+
+.table > .chart_row_panel > .chart_row.benchmark > .chart_cell_panel {
+    margin-top: -1px;
+    border-top: 3px solid #ffaa0c;
+}
+
+.app.mobile .table > .chart_row_panel > .chart_row > .chart_cell_panel {
+    /* On a mobile device the table fills the screen horizontally */
+    margin-right: 0px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell {
+    /* Align elements in a table-like layout */
+    float: left;
+    margin: 1px 0px 1px 1px;
+    box-sizing: border-box; /* Include border width in size */
+    -moz-box-sizing: border-box;
+    border: 1px solid #545454;
+    font-size: 8pt;
+    color: #E0E0E0;
+    overflow: hidden; /* Hide too large error messages */
+    background-color: Black; /* Set the color explicitly to avoid transparancy when moving rows */
+    position: relative;
+    background-color: #1e1e24;
+    overflow: visible !important; /* This is requried so that tooltips are visible outside the cell */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .text {
+    font-family: Helvetica, Arial;
+    font-size: 8pt;
+    padding: 4px;
+    white-space: normal;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell.error > .text {
+    color: Red;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .no-data { /* QV4 */
+    margin: 3px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .loading-data { /* QV4 */
+    margin: 3px;
+}
+
+/* // This is set in code since it must be the last visible child.
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell:last-child
+{
+    margin-right: 1px;
+}
+*/
+
+/* Chessboard-like chart cell background */
+.table > .chart_row_panel > .chart_row:nth-child(odd) > .chart_cell_panel > .chart_cell:nth-child(odd),
+.table > .chart_row_panel > .chart_row:nth-child(even) > .chart_cell_panel > .chart_cell:nth-child(even) {
+    /* DEPRECATED - 2013-09-24 : the background shade changes depending on data about how much hours/days/months is missing */
+    /*background-color: #1e1e24;*/
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell.disabled {
+    background-image: url(Images/Icons/Grid/chart_background_disabled.png);
+    background-repeat: repeat;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell.outdated {
+    background-image: url(Images/Icons/Grid/chart_background_outdated_v1.png);
+    background-repeat: repeat;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart,
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay {
+    position: absolute;
+    top: 0px;
+    left: 20px; /* Make space for the y-axis */
+    right: 0px;
+    bottom: 0px;
+    z-index: 2; /* Should be above the y-axis since the chart tooltip should be above */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay {
+    pointer-events: none; /* The div should be transparent to mouse events */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay > .benchmark_correlation {
+    position: absolute;
+    left: 5px;
+    bottom: 5px;
+    color: White;
+    font-size: 7pt;
+    font-weight: bold;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay > .benchmark_correlation > table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay > .benchmark_correlation > table td {
+    padding: 0px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay > .benchmark_correlation > table td.label {
+    padding-right: 3px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart > .text {
+    font-family: Helvetica, Arial;
+    font-size: 7pt;
+    padding: 4px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats {
+    position: absolute;
+    padding: 0px 5px; /* "No data" is displayed directly in the panel if there is no data */
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    font-family: Helvetica, Arial;
+    font-size: 7pt;
+}
+
+/* Display y-axis if there is any data */
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats:not(.no_data) {
+    background-image: url(Images/Icons/Grid/stats_y_axis.png);
+    background-repeat: repeat-y;
+    background-position: center center;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .chart {
+    position: absolute;
+    top: 5px;
+    left: 0px;
+    right: 0px;
+    bottom: 5px;
+    opacity: 0.6;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .chart > .positive {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 50%;
+    width: 0%;
+    background-color: Green;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .chart > .negative {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 50%;
+    width: 0%;
+    background-color: #D00000;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content {
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 0px 5px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content > .item > .label {
+    display: inline-block;
+    width: 40px;
+}
+
+/* Indicates that rows are sorted by the specified stat */
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content > .item.sorted > .label {
+    color: #2080FF;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content > .item > .value {
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content > .item > .value.positive {
+    color: Yellow; /* #00D000; */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .stats > .content > .item > .value.negative {
+    color: Yellow; /* #F00000; */
+}
+
+.stats_tooltip {
+}
+
+.stats_tooltip table {
+    font-size: 8pt;
+    font-family: Verdana;
+}
+
+.stats_tooltip table td.label {
+    text-align: right;
+}
+
+.stats_tooltip table td.value {
+    text-align: left;
+}
+
+.stats_tooltip table tr.separator td {
+    border-bottom: 1px solid #AAA;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 20px;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item {
+    font-family: Verdana;
+    font-size: 6pt;
+    color: Black;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item > .text {
+    padding-right: 1px;
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 50%;
+    text-align: center;
+    margin-top: -5px; /* A single line; -0.5em does not work well on iPhone so use -5px instead */
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.last > .text {
+    margin-top: -1.8em; /* Two lines */
+    line-height: 1.8em;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.hi {
+    top: 0px;
+    left: 0px;
+    height: 25%;
+    width: 100%;
+    position: absolute;
+    background-color: Yellow;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.last {
+    top: 25%;
+    bottom: 25%;
+    left: 0px;
+    width: 100%;
+    position: absolute;
+    background-color: White;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.last.positive {
+    background-color: Green;
+    color: White;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.last.negative {
+    background-color: Red;
+    color: White;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis > .item.lo {
+    bottom: 0px;
+    left: 0px;
+    height: 25%;
+    width: 100%;
+    position: absolute;
+    background-color: Yellow;
+}
+
+.table.no_y_axis > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart,
+.table.no_y_axis > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .chart_overlay {
+    left: 0px;
+}
+
+.table.no_y_axis > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell > .y_axis {
+    display: none;
+}
+
+.app.mobile .table .chart_row_panel .scroll_indicator {
+    z-index: 10000;
+    position: fixed;
+    right: 5px;
+    width: 20px;
+    height: 10px;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.app.mobile .table .chart_row_panel .scroll_indicator.up {
+    top: 10px;
+    background-image: url(Images/Icons/Grid/scroll-indicator-up.png);
+}
+
+.app.mobile .table .chart_row_panel .scroll_indicator.down {
+    bottom: 10px;
+    background-image: url(Images/Icons/Grid/scroll-indicator-down.png);
+}
+
+/*** Minimized ***/
+
+/* Hide all charts if the application is minimized */
+.app.minimized .table > .chart_row_panel {
+    display: none;
+}
+
+/** Full-screen panel **/
+
+.app.mobile .full_screen_chart {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.full_screen_chart {
+    background-color: #1e1e24;
+}
+
+/* Buttons (must be set on top in order to allow for property override) */
+
+.full_screen_chart .button_next,
+.ui_window .button_next {
+    border: 1px dotted #A0A0A0;
+    cursor: pointer;
+    background-image: url(Images/Icons/Charts/next_full_screen_chart.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    min-height: 16px; /* In case a descendant changes the width/height to 'auto' */
+    min-width: 16px; /* In case a descendant changes the width/height to 'auto' */
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+}
+
+.full_screen_chart .button_prev,
+.ui_window .button_prev {
+    border: 1px dotted #A0A0A0;
+    cursor: pointer;
+    background-image: url(Images/Icons/Charts/prev_full_screen_chart.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    min-height: 16px; /* In case a descendant changes the width/height to 'auto' */
+    min-width: 16px; /* In case a descendant changes the width/height to 'auto' */
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+}
+
+.full_screen_chart .button_close {
+    cursor: pointer;
+    background-image: url(Images/Icons/Charts/close_full_screen_chart.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    min-height: 16px; /* In case a descendant changes the width/height to 'auto' */
+    min-width: 16px; /* In case a descendant changes the width/height to 'auto' */
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+}
+
+.full_screen_chart.data.outdated {
+    background-image: url(Images/Icons/Grid/chart_background_outdated_v1.png);
+    background-repeat: repeat;
+}
+
+/* Extended chart */
+
+.extended_chart {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+.extended_chart > .chart_y_axis {
+    position: absolute;
+    top: 20px;
+    left: 5px;
+    bottom: 35px;
+    width: 40px;
+    cursor: pointer;
+}
+
+.extended_chart > .chart {
+    position: absolute;
+    top: 20px;
+    left: 5px;
+    bottom: 30px;
+    right: 5px;
+}
+
+.extended_chart.regular_stats_enabled > .chart,
+.extended_chart.benchmark_stats_enabled > .chart {
+    bottom: 50px;
+}
+
+.extended_chart.regular_stats_enabled.benchmark_stats_enabled > .chart {
+    bottom: 70px;
+}
+
+.app.mobile:not(.landscape) .extended_chart > .chart {
+    top: 50px; /* The width of the chart on mobile devices is smaller so the top stats are displayed on multiple lines */
+}
+
+.app.mobile:not(.landscape) .extended_chart.regular_stats_enabled > .chart,
+.app.mobile:not(.landscape) .extended_chart.benchmark_stats_enabled > .chart {
+    bottom: 80px; /* The width of the chart on mobile devices is smaller so the top stats are displayed on multiple lines */
+}
+
+.app.mobile:not(.landscape) .extended_chart.regular_stats_enabled.benchmark_stats_enabled > .chart {
+    bottom: 130px; /* The width of the chart on mobile devices is smaller so the top stats are displayed on multiple lines */
+}
+
+.extended_chart > .top_info {
+    font-size: 7pt;
+    font-family: Sans-Serif, Tahoma;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    left: 60px;
+    color: #EEE;
+    text-align: center;
+    background-color: Black;
+    padding: 2px 5px 2px 5px;
+    border: 1px solid transparent;
+}
+
+.extended_chart > .top_info.zoomed {
+    border-color: yellow;
+}
+
+/* No data is displayed for bar charts */
+.extended_chart > .top_info:empty {
+    display: none;
+}
+
+.extended_chart > .top_info .op,
+.extended_chart > .top_info .hi,
+.extended_chart > .top_info .lo,
+.extended_chart > .top_info .last_value {
+    white-space: nowrap;
+}
+
+/* Indicates non-static text */
+.extended_chart > .top_info .neutral,
+.extended_chart > .top_info .date {
+    color: Yellow; /* Requested by Dal */
+}
+
+.extended_chart > .top_info .positive {
+    /*color: #00C000;*/
+    color: Yellow; /* Requested by Dal */
+}
+
+.extended_chart > .top_info .negative {
+    /*color: #FF4040;*/
+    color: Yellow; /* Requested by Dal */
+}
+
+.extended_chart > .stats {
+    font-size: 7pt;
+    font-family: Sans-Serif, Tahoma;
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    left: 10px;
+    color: white;
+    text-align: center;
+    background-color: Black;
+    padding: 2px 5px;
+    white-space: normal;
+    border: 1px solid transparent;
+}
+
+.extended_chart > .stats.zoomed {
+    border-color: yellow;
+}
+
+.extended_chart > .stats > hr {
+    height: 0px;
+    border-width: 0px;
+    border-bottom: 1px solid #AAA;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+/* No data is displayed for bar charts */
+.extended_chart > .stats:empty {
+    display: none;
+}
+
+.extended_chart > .stats .group {
+    padding-left: 10px;
+    white-space: nowrap;
+}
+
+.extended_chart > .stats .item {
+    white-space: nowrap;
+}
+
+/* Indicates non-static text */
+.extended_chart > .stats .item > .value.neutral {
+    color: Yellow; /* Requested by Dal */
+}
+
+.extended_chart > .stats .item:not(:first-child) {
+    padding-left: 10px;
+}
+
+.extended_chart > .stats .item > .value.positive {
+    /*color: #00C000;*/
+    color: Yellow; /* Requested by Dal */
+}
+
+.extended_chart > .stats .item > .value.negative {
+    /*color: #FF4040;*/
+    color: Yellow; /* Requested by Dal */
+}
+
+/**
+* The button used to reset zoom.
+*/
+
+.extended_chart > .reset_zoom_button {
+    position: absolute;
+    background-image: url(Images/Icons/Charts/nav-reset-zoom-2.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 21px;
+    width: 64px;
+    cursor: pointer;
+    right: 14px;
+    top: 46px;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+    color: White;
+}
+
+/**
+* The button used to close an extended chart.
+*/
+.extended_chart > .close_button {
+    position: absolute;
+    background-image: url(Images/Icons/Charts/close_full_screen_chart.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    line-height: 32px; /* Centers the text vertically a bit better */
+    text-align: center;
+    vertical-align: middle;
+    top: 10px;
+    left: 40px; /* Keep the button at the same place on both the loading and the chart screen. Otherwise, the button appears as to have a glitch when data is loaded too fast and the button changes position fast. */
+    z-index: 9; /* Must be below menus that have z-index 10 */
+    color: White;
+}
+
+.extended_chart.data > .close_button {
+    display: block;
+}
+
+.extended_chart.loading .close_button, .extended_chart.error .close_button {
+    display: block;
+}
+
+/* Displays the unit (%, $) of data */
+.extended_chart > .unit_label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: #4D759E;
+    font-family: Helvetica, Arial;
+    font-size: 14pt;
+    display: none;
+    box-sizing: border-box;
+    width: 32px;
+    height: 32px;
+    line-height: 32px; /* Centers the text vertically a bit better */
+    text-align: center;
+    vertical-align: middle;
+}
+
+.extended_chart.data > .unit_label {
+    display: block;
+}
+
+/* Displays the unit (%, $) of data */
+.extended_chart > .view_mode_label {
+    cursor: pointer; /* Clicking on the unit changes it to the next one. */
+    position: absolute;
+    top: 10px;
+    right: 5px;
+    color: #4D759E;
+    font-family: Helvetica, Arial;
+    font-size: 9pt;
+    display: none;
+    border: 1px dotted #4D759E;
+    padding: 1px 2px;
+    text-align: center;
+}
+
+.extended_chart > .view_mode_label > .check {
+    font-family: Courier New;
+    font-size: 10pt;
+}
+
+.extended_chart.data > .view_mode_label {
+    display: block;
+}
+
+/* Top markets */
+
+/* Tooltips can be displayed outside of the panel over the header row */
+.top_markets .market_chart, .top_markets .market_chart .highcharts-container {
+    overflow: visible !important;
+}
+
+.top_markets .top_markets_chart_tooltip {
+}
+
+.top_markets .top_markets_chart_tooltip .description {
+    color: Yellow;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.top_markets .top_markets_chart_tooltip .description table {
+    border-collapse: collapse;
+}
+
+.top_markets .top_markets_chart_tooltip .description table td {
+    padding: 1px 2px;
+}
+
+/**
+* Displays the top markets.
+*/
+.top_markets {
+    /* Fill the space of the parent container */
+    background-color: #1e1e24;
+    font-size: 8pt;
+    color: White;
+}
+
+/**
+* The panel inside which content is displayed. Must have abosulte positionning to be able to fill the parent.
+* Then 
+*/
+.top_markets > .content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+}
+
+/**
+* The area in which to display text.
+*/
+.top_markets > .content > div.text {
+    top: 30px; /* Provide space for the close button */
+    left: 5px;
+    bottom: 5px;
+    right: 5px;
+    position: absolute;
+}
+
+.top_markets > .close_button {
+    position: absolute;
+    background-image: url(Images/Icons/Charts/close_full_screen_chart.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+    top: 10px;
+    left: 10px;
+    display: none;
+}
+
+/**
+* The button used to close the top markets.
+*/
+.top_markets.data > .close_button {
+    display: block;
+    left: 60px;
+}
+
+/**
+* The button used to close the top markets.
+*/
+.top_markets.loading > .close_button, #top_markets.error > .close_button {
+    display: block;
+}
+
+/**
+* Displays the top 10 best/worst markets.
+*/
+div.market_chart {
+    /* Use padding instead of margin since padding is included in the size of the element. On mobile devices the size of the element is set explicitly in code to occupy 50% of the height of the available vertical space. */
+    padding: 5px 5px 0px 5px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 50%;
+    position: relative;
+}
+
+/**
+* The title of the market chart.
+*/
+div.market_chart > div.header {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    left: 80px;
+    height: 20px;
+    font-size: 8pt;
+    font-family: Helvetica, Arial;
+}
+
+.full_screen_chart div.market_chart > div.header {
+    /* The header must be displayed ABOVE the content; otherwise, buttons are overlapped by the content and are not accessible. */
+    z-index: 1;
+}
+
+.ui_window div.market_chart > div.header {
+    /* The header must NOT overlap with the chart; otherwise, buttons cannot be clicked */
+    top: 0px;
+}
+
+.mobile .ui_window {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+}
+
+/**
+* The title of the market chart.
+*/
+div.market_chart > div.header > div.title {
+    float: right;
+    margin-right: 5px;
+    color: #ffe720; /* Yellow */
+}
+
+div.market_chart > div.header > div.button_next {
+    float: right;
+}
+
+/**
+* The total of the market chart.
+*/
+div.market_chart > div.header > div.total {
+    float: right;
+    color: #EEE;
+    margin-right: 10px;
+}
+
+div.market_chart > div.header > div.total.positive {
+    color: #00B000;
+}
+
+div.market_chart > div.header > div.total.negative {
+    color: #FF2020;
+}
+
+/**
+* The content of the market chart.
+*/
+div.market_chart > div.content {
+    /* Using absolute positioning causes fewer issues than height: 100% */
+    position: absolute;
+    top: 15px;
+    right: 10px;
+    bottom: 5px;
+    left: 0px;
+}
+
+/**
+* Displays the top markets.
+*/
+.top_markets_correlation {
+    /* Fill the space of the parent container */
+    background-color: #1e1e24;
+    font-size: 8pt;
+    color: White;
+}
+
+/**
+* The panel inside which content is displayed. Must have abosulte positionning to be able to fill the parent.
+* Then 
+*/
+.top_markets_correlation > .content {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 5px;
+    overflow: auto;
+}
+
+/*** Chart correlation ***/
+
+/**
+* Displays the top markets.
+*/
+.charts_correlation {
+    /* Fill the space of the parent container */
+    background-color: #1e1e24;
+    font-size: 8pt;
+    color: White;
+    position: relative;
+}
+
+/**
+* The panel inside which content is displayed. Must have abosulte positionning to be able to fill the parent.
+* Then 
+*/
+.charts_correlation > .correlation_matrix {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    padding: 5px;
+    overflow: auto;
+}
+
+/* Tooltips */
+
+.app.mobile .correlation_tooltip {
+    font-size: smaller; /* Decrease the size of the font to fit tooltip on screen */
+}
+
+.correlation_tooltip table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.correlation_tooltip table td {
+    border-width: 1px;
+}
+
+.correlation_tooltip .label {
+    text-align: right;
+    white-space: nowrap;
+}
+
+.correlation_tooltip .value {
+    white-space: nowrap;
+}
+
+.correlation_tooltip .insufficient_data {
+    font-style: italic;
+    margin-top: 20px;
+    background-image: url(Images/Icons/Matrix/insufficient_data_dark.png);
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding-left: 15px; /* Provide space for the background to be in front of the text */
+    color: red; /* Requested by Harry */
+}
+
+/* Correlartion matrix */
+
+.correlation_matrix {
+}
+
+.correlation_matrix > div.header {
+    position: absolute;
+    top: 10px;
+    left: 110px;
+    right: 10px;
+    font-size: 10pt;
+}
+
+.correlation_matrix > div.header > div.title {
+    width: 150px;
+    text-align: center;
+    margin: 0px auto;
+}
+
+.correlation_matrix > div.header > div.title.best {
+    color: #00C000;
+}
+
+.correlation_matrix > div.header > div.title.worst {
+    color: #FF4040;
+}
+
+.correlation_matrix > div.header > div.button_prev {
+    border: 1px dotted #A0A0A0;
+    cursor: pointer;
+    background-image: url(Images/Icons/Charts/prev_full_screen_chart.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    min-height: 16px; /* In case a descendant changes the width/height to 'auto' */
+    min-width: 16px; /* In case a descendant changes the width/height to 'auto' */
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+    cursor: pointer;
+    float: left;
+    color: Yellow;
+    padding-left: 20px;
+    background-position: left center;
+    width: auto;
+    height: auto;
+}
+
+.correlation_matrix > div.header > div.button_next {
+    border: 1px dotted #A0A0A0;
+    cursor: pointer;
+    background-image: url(Images/Icons/Charts/next_full_screen_chart.png);
+    background-position: left;
+    background-repeat: no-repeat;
+    height: 16px;
+    width: 16px;
+    min-height: 20px; /* In case a descendant changes the width/height to 'auto' */
+    min-width: 20px; /* In case a descendant changes the width/height to 'auto' */
+    cursor: pointer;
+    z-index: 9; /* Must be below menus that have z-index 10 */
+    cursor: pointer;
+    float: right;
+    color: Yellow;
+    padding-right: 20px;
+    background-position: right center;
+    width: auto;
+    height: auto;
+}
+
+@media all and (max-width: 400px) {
+    .correlation_matrix > div.header > div.button_prev > .text,
+    .correlation_matrix > div.header > div.button_next > .text {
+        display: none;
+    }
+}
+
+.correlation_matrix > table {
+    font-size: 7pt;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.correlation_matrix > table td {
+    padding: 0px; /* The padding adds to the size of the cell. Therefore, it should NOT be used. */
+    border: solid 1px #1e1e24;
+    text-align: center;
+}
+
+.correlation_matrix > table th {
+    padding: 0px; /* The padding adds to the size of the cell. Therefore, it should NOT be used. */
+}
+
+.correlation_matrix > table td,
+.correlation_matrix > table th {
+    width: 30px;
+    height: 30px;
+}
+
+.correlation_matrix.large > table td,
+.correlation_matrix.large > table th {
+    width: 50px;
+    height: 50px;
+}
+
+.correlation_matrix > table td {
+    font-weight: bold;
+}
+
+.correlation_matrix.large > table td {
+    font-size: 8pt;
+}
+
+.correlation_matrix > table td > div.number {
+    font-size: smaller;
+}
+
+.correlation_matrix > table td.insufficient_data {
+    background-position: right 3px bottom 3px;
+    background-repeat: no-repeat;
+}
+
+.correlation_matrix > table td.insufficient_data.dark {
+    background-image: url(Images/Icons/Matrix/insufficient_data_dark.png);
+}
+
+.correlation_matrix > table td.insufficient_data.light {
+    background-image: url(Images/Icons/Matrix/insufficient_data_light.png);
+}
+
+.correlation_matrix > table th {
+    padding: 0px; /* The padding adds to the size of the cell. Therefore, it should NOT be used. */
+    font-weight: bold;
+    text-align: center;
+    vertical-align: middle;
+    color: #ffe720; /* Yellow */
+}
+
+.correlation_matrix > table th.more {
+    background-repeat: no-repeat;
+}
+
+.correlation_matrix > table th.more.right {
+    background-image: url(Images/Icons/Matrix/more_right.png);
+    background-position: right 3px bottom 3px;
+}
+
+.correlation_matrix > table th.more.left {
+    background-image: url(Images/Icons/Matrix/more_left.png);
+    background-position: left 3px bottom 3px;
+}
+
+.correlation_matrix > table th.more.up {
+    background-image: url(Images/Icons/Matrix/more_up.png);
+    background-position: right 3px top 3px;
+}
+
+.correlation_matrix > table th.more.down {
+    background-image: url(Images/Icons/Matrix/more_down.png);
+    background-position: right 3px bottom 3px;
+}
+
+.correlation_matrix > table td {
+    color: White;
+}
+
+.correlation_matrix > table th > div.label {
+}
+
+.correlation_matrix > table th > div.label > div {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.correlation_matrix > table th > div.label,
+.correlation_matrix > table td > div.value,
+.correlation_matrix > table td > div.number {
+    width: 30px; /* The browser may shrink "TD" tags if there is not enough space so force the size by setting it on the div */
+    max-height: 30px;
+}
+
+.correlation_matrix > table th > div.label {
+    text-align: left;
+    word-break: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 8pt;
+}
+
+.correlation_matrix.large > table th > div.label,
+.correlation_matrix.large > table td > div.value,
+.correlation_matrix.large > table td > div.number {
+    width: 50px; /* The browser may shrink "TD" tags if there is not enough space so force the size by setting it on the div */
+    max-height: 50px;
+}
+
+/* Empty (diagonal) cell */
+.correlation_matrix > table td.empty div {
+    width: 48px;
+    height: 48px;
+    border: 1px solid #666;
+}
+
+/* N/A style */
+.correlation_matrix > table td.na {
+    background-color: #D3D3D3;
+    color: Black;
+}
+
+.correlation_matrix.large > table th {
+    width: 120px;
+    font-size: 8pt;
+}
+
+.correlation_matrix.large > table tr.footer th:not(.horizontal) {
+    /* The text in the footer is displayed vertically */
+    width: 50px;
+    height: 120px;
+    text-align: left; /* The div inside the table cell fills the cell and is rotated by 90 degrees by its top-left corner */
+    vertical-align: top;
+}
+
+.correlation_matrix.large > table th > div.label {
+    width: 120px;
+}
+
+.correlation_matrix.large > table th > div.label.axis {
+    color: #E55451;
+}
+
+.correlation_matrix.large > table th.top_left {
+    background-image: url(Images/Icons/Matrix/help.png);
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+}
+
+.correlation_matrix.large > table th.top_left > div {
+    height: 120px;
+    width: 120px;
+    position: relative;
+    color: #E55451;
+}
+
+.correlation_matrix.large > table th.top_left > div > .y_axis {
+    position: absolute;
+    left: 0px;
+    bottom: 3px;
+    text-align: left;
+}
+
+.correlation_matrix.large > table th.top_left > div > .x_axis {
+    position: absolute;
+    right: 7px;
+    bottom: 3px;
+    text-align: right;
+}
+
+.correlation_matrix.large > table tr.footer th:not(.horizontal) > div.label {
+    /* The text in the footer is displayed vertically */
+    height: 50px;
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: absolute;
+    -webkit-transform: translateY(36px) translateX(-34px) rotate(-90deg);
+    -moz-transform: translateY(36px) translateX(-34px) rotate(-90deg);
+    -ms-transform: translateY(36px) translateX(-34px) rotate(-90deg);
+    -o-transform: translateY(36px) translateX(-34px) rotate(-90deg);
+    transform: translateY(36px) translateX(-34px) rotate(-90deg);
+    /* The filter is not needed when the rotation is at 90 degrees */
+    /*-webkit-filter: opacity(0.999);*/ /* Add anti-aliasing to rotated text in Chrome; -webkit-backface-visibility: hidden - SHOULD NOT be used since it affects all elements in the table tag (all th and td tags). */
+}
+
+.correlation_matrix.large > table tr.footer.bottom th:not(.horizontal) > div.label {
+}
+
+/** Info **/
+
+.correlation_matrix > .info {
+    font-size: 7pt;
+    color: #E8E8E8;
+    margin-bottom: 10px;
+}
+
+/* Used instead of ".size_label" for some charts */
+.correlation_matrix > table > caption {
+    font-size: 7pt;
+    color: #E8E8E8;
+    text-align: left;
+    padding-bottom: 10px;
+}
+
+/** Color scale **/
+
+.correlation_matrix > div.color_scale {
+    max-width: 410px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.correlation_matrix > div.color_scale:before {
+    content: "Color:";
+    display: block;
+    float: left;
+}
+
+.correlation_matrix > div.color_scale > .content {
+    margin-left: 50px;
+}
+
+.correlation_matrix > div.color_scale > .content > .item {
+    display: inline-block;
+    width: 2.439%;
+    height: 10px;
+}
+
+.correlation_matrix > div.color_scale > .labels {
+    margin-left: 50px;
+}
+
+.correlation_matrix > div.color_scale > .labels > .min {
+    display: inline-block;
+    width: 49%;
+    text-align: left;
+}
+
+.correlation_matrix > div.color_scale > .labels > .max {
+    display: inline-block;
+    width: 49%;
+    text-align: right;
+}
+
+/** Color scale 2 **/
+
+.correlation_matrix > div.color_scale2 {
+    margin: 0px 10px;
+    max-width: 500px;
+    height: 30px;
+}
+
+.correlation_matrix > div.color_scale2 > .title {
+    float: left;
+    margin-right: 10px;
+}
+
+.correlation_matrix > div.color_scale2 > .content {
+    overflow: hidden;
+}
+
+.correlation_matrix > div.color_scale2 > .content > .scale {
+}
+
+.correlation_matrix > div.color_scale2 > .content > .scale > .item {
+    display: inline-block;
+    width: 2.439%;
+    height: 10px;
+}
+
+.correlation_matrix > div.color_scale2 > .content > .labels {
+    font-size: 8pt;
+}
+
+.correlation_matrix > div.color_scale2 > .content > .labels > .min {
+    display: inline-block;
+    width: 49%;
+    text-align: left;
+}
+
+.correlation_matrix > div.color_scale2 > .content > .labels > .max {
+    display: inline-block;
+    width: 49%;
+    text-align: right;
+}
+
+/*** Chart stats ***/
+
+.chart_stats table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.chart_stats table th,
+.chart_stats table td {
+    color: White;
+    border: 1px solid gray;
+    padding: 4px;
+}
+
+.chart_stats table tr:first-child th.sort.asc span:after {
+    content: " \21e9";
+}
+
+.chart_stats table tr:first-child th.sort.dsc span:after {
+    content: " \21e7";
+}
+
+.chart_stats table tr:first-child th:not(:first-child) {
+    /* The column headers are clickable */
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Row headers */
+.chart_stats table tr:not(:first-child) th {
+    text-align: left;
+    min-width: 80px; /* The column should have some width until data is loaded */
+}
+
+.chart_stats table td {
+    text-align: right;
+}
+
+.chart_stats table td.negative {
+    color: Red;
+}
+
+.chart_stats table td.positive {
+    color: Green;
+}
+
+/*** Screen overlay ***/
+
+#panelScreenOverlay_Old {
+    top: 0px;
+    left: 0px;
+    display: none;
+    position: absolute;
+    z-index: 1000000;
+}
+
+#panelLoading {
+    background-image: url(Images/loading.gif);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: rgba(0, 0, 0, 0.5);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#80000000'); /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#80000000')"; /*opacity: 0.95;*/
+}
+
+.table > .header_row > .user_cell .chart-data-update-progress {
+    position: absolute;
+    left: 5px;
+    right: 5px;
+    bottom: 12px;
+    text-align: center;
+    font-size: 7pt;
+}
+
+.table > .header_row > .user_cell .chart-data-update-progress.error {
+    color: red;
+}
+
+.table > .chart_row_panel > .chart_row > .chart_row_header .chart_update {
+    position: absolute;
+    left: 2px;
+    bottom: -1px;
+    color: #222;
+    font-size: 7pt;
+    width: 23px;
+    text-align: left;
+}
+
+/*** Highcharts tooltips ***/
+
+/* Tooltips can be displayed outside of the cell over adjacent cells */
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell.data,
+.table > .chart_row_panel > .chart_row > .chart_cell_panel > .chart_cell.data .highcharts-container {
+    overflow: visible !important;
+}
+
+/*** Highcharts ***/
+
+.highchart_tooltip {
+    color: White;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    font-size: 9pt;
+}
+
+.highchart_tooltip.positive {
+    border: 2px solid #008000;
+}
+
+.highchart_tooltip.negative {
+    border: 2px solid #C00000;
+}
+
+.highchart_tooltip .positive {
+    color: #00D000;
+}
+
+.highchart_tooltip .negative {
+    color: #FF0000;
+}
+
+.highchart_tooltip hr {
+    border-width: 0px;
+    border-top-width: 1px;
+}
+
+/* Last data point */
+.highchart_tooltip .last {
+    margin-left: 20px;
+    font-size: smaller;
+}
+
+.positions_tooltip .label {
+    display: inline-block;
+    width: 40px;
+}
+
+.positions_tooltip .value {
+    width: 60px;
+    display: inline-block;
+    white-space: nowrap;
+    text-align: right;
+}
+
+.positions_tooltip .positive {
+    color: #00C000;
+}
+
+.positions_tooltip .negative {
+    color: Red;
+}
+
+/*** Menu ***/
+
+/** Common **/
+
+.mm-menu {
+    color: rgba(255, 255, 255, 0.8); /* Dal - use a brighter color */
+}
+
+.mm-menu.mm-light {
+    color: rgba(0, 0, 0, 0.8); /* Dal - use a brighter color */
+}
+
+.mm-menu > .mm-panel.mm-hidden {
+    display: none;
+    visibility: visible;
+}
+/* Disable menu open animation on mobile devices */
+.mm-menu.mm-no-animation.mm-front,
+.mm-menu.mm-no-animation.mm-next {
+    -webkit-transition: none;
+    -moz-transition: none;
+    -ms-transition: none;
+    -o-transition: color 0 ease-in;
+    transition: none;
+}
+
+.menu {
+    /* Must be above the header of the table - appears under only in iOS Safari */
+    z-index: 999 !important;
+}
+
+.menu.mobile {
+    text-shadow: none !important; /* Disable shadow set by JQM */
+}
+
+/** MMenu modifications **/
+
+.mm-list > li.mm-spacer.slim {
+    padding-top: 5px;
+}
+
+.mm-list > li.mm-spacer.line {
+    padding-top: 2px;
+}
+
+.mm-menu .mm-header {
+    color: rgba(255, 255, 255, 0.6);
+    padding-top: 10px;
+    padding-right: 80px;
+    height: 40px;
+}
+
+.mm-menu.mm-light .mm-header {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.mm-menu .mm-header .mm-title {
+    font-weight: bold;
+}
+
+.mm-menu.mobile .mm-header {
+    padding-left: 34px;
+}
+
+.mm-menu.mobile .mm-header .mm-title {
+    text-align: left;
+}
+
+.mm-menu .mm-header .mm-prev {
+    top: 0px;
+    height: 20px;
+}
+
+.mm-label {
+    text-transform: none !important;
+    font-size: inherit !important;
+    font-weight: bold;
+    text-align: center; /* Center the text */
+    padding: 0px; /* Center the text */
+    text-indent: 0px !important; /* Center the text */
+    line-height: 30px !important; /* This adds some more space above and below the text */
+    color: rgba(255, 255, 255, 0.9) !important; /* Switch fg and bg colors */
+    background-color: rgba(0, 0, 0, 0.6) !important; /* Switch fg and bg colors */
+}
+
+.menu.mobile .mm-list > li > a:not(.mm-subopen),
+.menu.mobile .mm-list > li > span:not(.mm-subopen) {
+    padding-left: 7px;
+}
+/* The line that separates menu items */
+.menu.mobile .mm-list > li:not(.mm-subtitle):not(.mm-label):not(.mm-noresults):after {
+    margin-left: 7px;
+}
+/* Increase the font size on mobile */
+.menu.mobile .mm-list {
+    font-size: 16px;
+}
+
+.menu .mm-list > li > a,
+.menu .mm-list > li > span {
+    line-height: 40px; /* Change the height of a menu item to 40px; remove the 10px top/bottom padding; */
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+/* Decrease the size of menu items on desktop */
+.menu.desktop .mm-list > li > a,
+.menu.desktop .mm-list > li > span {
+    line-height: 30px;
+}
+/* Decrease the size of menu items on mobile */
+.menu.mobile .mm-list > li > a,
+.menu.mobile .mm-list > li > span {
+    line-height: 35px;
+}
+
+.mm-disabled {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+/* Show default mouse pointer for disabled menu items */
+.mm-disabled, .mm-disabled * {
+    cursor: default;
+}
+
+.menu.mm-light .mm-disabled {
+    color: rgba(0, 0, 0, 0.4);
+}
+
+.mm-close-menu {
+    cursor: pointer;
+    z-index: 10; /* Put the element in front just in case */
+    display: block;
+    position: absolute;
+    bottom: 8px;
+    right: 16px;
+    width: 24px;
+    height: 24px;
+    background-image: url(Images/Icons/Menu/close_menu_l.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+}
+
+.mm-confirm-menu {
+    cursor: pointer;
+    z-index: 10; /* Put the element in front just in case */
+    display: block;
+    position: absolute;
+    bottom: 8px;
+    right: 56px;
+    width: 24px;
+    height: 24px;
+    background-image: url(Images/Icons/Menu/confirm_menu_l.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+}
+
+.menu.mobile li > a.mm-subopen {
+    width: 40px;
+}
+/* Correct the positioning of the ">" that opens a sub-menu */
+.menu.mobile li > a.mm-subopen:after,
+.menu.mobile li > span.mm-subopen:after {
+    right: 23px;
+}
+
+.menu li.mm-tooltip > a.mm-subopen:after,
+.menu li.mm-tooltip > span.mm-subopen:after {
+    border: none;
+    width: 40px;
+    height: auto;
+    margin: 0px;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    background-image: url(Images/Icons/Menu/tooltip_l.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-transform: none;
+    -moz-transform: none;
+    -ms-transform: none;
+    -o-transform: none;
+    transform: none;
+}
+
+.menu li.mm-tooltip.mm-tooltip-nothumb > a.mm-subopen:after,
+.menu li.mm-tooltip.mm-tooltip-nothumb > span.mm-subopen:after {
+    display: none;
+}
+/* Increase the size of the icon on mobile */
+.menu.mobile li.mm-tooltip > a.mm-subopen,
+.menu.mobile li.mm-tooltip > span.mm-subopen {
+    width: 40px;
+}
+
+.menu.mobile li.mm-tooltip > a.mm-subopen:after,
+.menu.mobile li.mm-tooltip > span.mm-subopen:after {
+    width: 40px;
+}
+
+/* Tooltip */
+/*
+ * CAUTION: CSS selectors CANNOT be restricted with ".menu li.mm-tooltip > " since mmenu moves the tooltip DIV tags
+ * OUTSIDE of the LI tags and inside the NAV tag.
+ */
+
+.menu div.mm-tooltip {
+}
+
+.menu div.mm-tooltip > div.mm-tooltip-content {
+    padding: 20px 10px 10px 10px;
+}
+
+.menu div.mm-tooltip > div.mm-tooltip-title {
+    display: none;
+}
+
+/* Arbitrary HTML content */
+
+.menu li.mm-html span /* SPAN tag must be used since MMenu converts DIV tags to panels */ {
+    line-height: normal !important;
+    white-space: normal !important;
+    display: block !important;
+}
+
+/** New version **/
+
+.menu li.history-new {
+    color: #f9a31a;
+}
+
+.menu li.new-version-available {
+    color: #f9a31a;
+}
+
+/** Funds **/
+
+.menu li.fund-menu-item > span.label,
+.menu li.fund-menu-item > a.label {
+    margin-right: 122px; /* Take into an account the two additional (add/remove) buttons and the fav icon (26px) */
+}
+/* The cell width on mobile is 40px */
+.menu.mobile li.fund-menu-item > span.label,
+.menu.mobile li.fund-menu-item > a.label {
+    margin-right: 122px; /* Take into an account the two additional (add/remove) buttons and the fav icon (26px) */
+}
+
+.menu li.fund-menu-item var.add,
+.menu li.fund-menu-item var.remove,
+.menu li.fund-menu-item var.select {
+    cursor: pointer;
+    z-index: 10; /* Must be above other objects created by mmenu and which handle mouse events */
+    display: block;
+    position: absolute;
+    vertical-align: middle;
+    font-style: normal;
+    font-weight: bold;
+    text-align: center;
+    top: 0px;
+    bottom: 0px;
+    line-height: 40px;
+}
+
+.menu li.fund-menu-item var.add {
+    width: 41px; /* Compensate for left border */
+    right: 81px;
+}
+
+.menu li.fund-menu-item var.remove,
+.menu li.fund-menu-item var.select {
+    width: 42px; /* Compensate for left and right border */
+    right: 39px; /* -1px to be at the same position as the left border of regular sub-menus */
+}
+
+.menu li.fund-menu-item var.add.selected,
+.menu li.fund-menu-item var.remove.selected {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.menu li.fund-menu-item var.select.selected {
+    background-color: #22b14c;
+}
+
+.menu li.fund-menu-item var.add.disabled,
+.menu li.fund-menu-item var.remove.disabled,
+.menu li.fund-menu-item var.select.disabled {
+    color: rgba(255, 255, 255, 0.15);
+}
+
+.menu.mm-light li.fund-menu-item var.add.disabled,
+.menu.mm-light li.fund-menu-item var.remove.disabled,
+.menu.mm-light li.fund-menu-item var.select.disabled {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.menu li.fund-menu-item var.add:before,
+.menu li.fund-menu-item var.remove:before,
+.menu li.fund-menu-item var.remove:after,
+.menu li.fund-menu-item var.select:before,
+.menu li.fund-menu-item var.select:after {
+    content: '';
+    border-color: rgba(0, 0, 0, 0.1);
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+}
+
+.menu li.fund-menu-item var.add:before,
+.menu li.fund-menu-item var.remove:before,
+.menu li.fund-menu-item var.select:before {
+    left: 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+
+.menu li.fund-menu-item var.remove:after,
+.menu li.fund-menu-item var.select:after {
+    right: 0;
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+
+.menu li.fund-menu-item .mm-subopen:before {
+    display: none;
+}
+
+/* Decrease the size of menu items on desktop */
+.menu.desktop li.fund-menu-item var.add,
+.menu.desktop li.fund-menu-item var.remove,
+.menu.desktop li.fund-menu-item var.select {
+    line-height: 30px;
+}
+
+/* Increase the size of menu items on mobile */
+.menu.mobile li.fund-menu-item var.add,
+.menu.mobile li.fund-menu-item var.remove,
+.menu.mobile li.fund-menu-item var.select {
+    line-height: 35px;
+}
+
+/* Number of favorites inside fav icon */
+.menu li.fund-menu-item .icon {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 7pt;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    margin-left: -8px; /* Compensate for the larger icon */
+    margin-top: -4px; /* Compensate for the larger icon: center the icon vertically */
+    line-height: 28px; /* Larger line height moves the text a bit lower to better match the start shape */
+}
+
+/** Row header **/
+
+.menu li div.row-info {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.menu li div.row-info > div.title {
+    margin-bottom: 10px;
+    font-weight: bold;
+    text-align: center;
+}
+
+/** Icons **/
+
+.menu .icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: text-bottom;
+}
+
+.menu .icon.check {
+    background-image: url(Images/Icons/Menu/check.png);
+}
+
+.menu .icon.top-markets {
+    background-image: url(Images/Icons/Menu/top_markets.png);
+}
+
+.menu .icon.top-fund-stats {
+    background-image: url(Images/Icons/Menu/charts_correlation.png);
+}
+
+.menu .icon.reset-view {
+    background-image: url(Images/Icons/Menu/reset_view.png);
+}
+
+.menu .icon.history {
+    background-image: url(Images/Icons/Menu/history.png);
+}
+
+.menu .icon.history-new {
+    background-image: url(Images/Icons/Menu/history_new.png);
+}
+
+.menu .icon.change-password {
+    background-image: url(Images/Icons/Menu/change_password.png);
+}
+
+.menu .icon.log-out {
+    background-image: url(Images/Icons/Menu/log_out.png);
+}
+
+.menu .icon.new-version-available {
+    background-image: url(Images/Icons/Menu/new_version.png);
+}
+/* // Not in use
+.menu .icon.mini-show-tooltips
+{
+    background-image: url(Images/Icons/Menu/show_tooltips.png);
+}
+.menu .icon.mini-sync-top-row
+{
+    background-image: url(Images/Icons/Menu/sync_top_row.png);
+}
+*/
+
+.menu .icon.move-top {
+    background-image: url(Images/Icons/Menu/move_top.png);
+}
+
+.menu .mm-disabled .icon.move-top {
+    background-image: url(Images/Icons/Menu/move_top_l.png);
+}
+
+.menu .icon.move-left {
+    background-image: url(Images/Icons/Menu/move_left.png);
+}
+
+.menu .icon.move-right {
+    background-image: url(Images/Icons/Menu/move_right.png);
+}
+
+.menu .icon.move-up {
+    background-image: url(Images/Icons/Menu/move_up.png);
+}
+
+.menu .icon.move-down {
+    background-image: url(Images/Icons/Menu/move_down.png);
+}
+
+.menu .icon.move-bottom {
+    background-image: url(Images/Icons/Menu/move_bottom.png);
+}
+
+.menu .mm-disabled .icon.move-bottom {
+    background-image: url(Images/Icons/Menu/move_bottom_l.png);
+}
+
+.menu .icon.remove-row {
+    background-image: url(Images/Icons/Menu/remove_row.png);
+}
+
+.menu .icon.add-column {
+    background-image: url(Images/Icons/Menu/add_column.png);
+}
+
+.menu .icon.remove-column {
+    background-image: url(Images/Icons/Menu/remove_column.png);
+}
+
+.menu .icon.fund-tooltip {
+    background-image: url(Images/Icons/Menu/tooltip.png);
+}
+
+.menu .mm-disabled .icon.fund-tooltip {
+    background-image: url(Images/Icons/Menu/tooltip_l.png);
+}
+
+.menu .icon.add-to-favorites {
+    background-image: url(Images/Icons/Menu/add_to_favorites.png);
+}
+
+.menu .icon.remove-from-favorites {
+    background-image: url(Images/Icons/Menu/remove_from_favorites.png);
+}
+
+.menu .icon.silverlight {
+    background-image: url(Images/Icons/Menu/silverlight.png);
+}
+/* // Not in use
+.menu .icon.show-tooltips
+{
+    background-image: url(Images/Icons/Menu/show_tooltips.png);
+}
+.menu .icon.show-tooltips-disabled
+{
+    background-image: url(Images/Icons/Menu/show_tooltips_l.png);
+}
+*/
+.menu .icon.favorite {
+    background-image: url(Images/Icons/Menu/favorite_l_v6.png);
+}
+
+.menu .icon.favorite-partial {
+    background-image: url(Images/Icons/Menu/favorite_partial_l_v6.png);
+}
+
+.menu .icon.favorite-partial {
+    background-image: url(Images/Icons/Menu/favorite_partial_l_v6.png);
+}
+
+.menu.cell-menu .icon.open-extended-chart {
+    background-image: url(Images/Icons/Menu/Cell/open-extended-chart.svg);
+}
+
+/* Desktop-specific */
+
+.menu .icon.download {
+    background-image: url(Images/Icons/Menu/download.png);
+}
+
+.menu .icon.piwik {
+    background-image: url(Images/Icons/Menu/piwik.png);
+}
+
+/** Add/remove fund icons **/
+
+.menu .icon-add-fund, .menu .icon-remove-fund, .icon-selected-indicator {
+    display: inline-block;
+    background-repeat: no-repeat;
+    background-position: center center;
+    vertical-align: middle;
+    display: block;
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+}
+
+.menu .icon-add-fund {
+    width: 41px; /* Compensate for left border */
+    right: 82px;
+    background-image: url(Images/Icons/Menu/add_fund_l.png);
+}
+
+.menu .icon-remove-fund {
+    width: 42px; /* Compensate for left and right border */
+    right: 40px;
+    background-image: url(Images/Icons/Menu/remove_fund_l.png);
+}
+
+.menu .icon-selected-indicator {
+    width: 42px; /* Compensate for left and right border */
+    right: 40px;
+    background-image: url(Images/Icons/Menu/select-indicator.png);
+}
+
+/* Increase the size of the cell on mobile */
+.menu.mobile .icon-add-fund {
+    width: 41px; /* Compensate for left border */
+    right: 82px;
+}
+/* Increase the size of the cell on mobile */
+.menu.mobile .icon-remove-fund {
+    width: 42px; /* Compensate for left and right border */
+    right: 40px;
+}
+/* Increase the size of the cell on mobile */
+.menu.mobile .icon-selected-indicator {
+    width: 42px; /* Compensate for left and right border */
+    right: 40px;
+    background-image: url(Images/Icons/Menu/select-indicator.png);
+}
+
+/*** Shapes ***/
+
+.shape {
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+/* Primary */
+.shape.circle-double {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle-double.png);
+}
+
+.shape.circle-half {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle-half.png);
+}
+
+.shape.circle {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle.png);
+}
+
+.shape.clover {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/clover.png);
+}
+
+.shape.diamond {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/diamond.png);
+}
+
+.shape.heart {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/heart.png);
+}
+
+.shape.hexagon {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/hexagon.png);
+}
+
+.shape.misc-3 {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/misc-3.png);
+}
+
+.shape.pentagon {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/pentagon.png);
+}
+
+.shape.plus {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/plus.png);
+}
+
+.shape.square {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/square.png);
+}
+
+.shape.star-4 {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-4.png);
+}
+
+.shape.star-5 {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-5.png);
+}
+
+.shape.star-ray-6 {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-ray-6.png);
+}
+
+.shape.triangle {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/triangle.png);
+}
+/* Primary - partial */
+.shape.circle-double-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle-double-nofill.png);
+}
+
+.shape.circle-half-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle-half-nofill.png);
+}
+
+.shape.circle-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/circle-nofill.png);
+}
+
+.shape.clover-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/clover-nofill.png);
+}
+
+.shape.diamond-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/diamond-nofill.png);
+}
+
+.shape.heart-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/heart-nofill.png);
+}
+
+.shape.hexagon-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/hexagon-nofill.png);
+}
+
+.shape.misc-3-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/misc-3-nofill.png);
+}
+
+.shape.pentagon-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/pentagon-nofill.png);
+}
+
+.shape.plus-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/plus-nofill.png);
+}
+
+.shape.square-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/square-nofill.png);
+}
+
+.shape.star-4-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-4-nofill.png);
+}
+
+.shape.star-5-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-5-nofill.png);
+}
+
+.shape.star-ray-6-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/star-ray-6-nofill.png);
+}
+
+.shape.triangle-partial {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Dark/triangle-nofill.png);
+}
+/* Alternative */
+.shape.circle-double-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle-double.png);
+}
+
+.shape.circle-half-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle-half.png);
+}
+
+.shape.circle-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle.png);
+}
+
+.shape.clover-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/clover.png);
+}
+
+.shape.diamond-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/diamond.png);
+}
+
+.shape.heart-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/heart.png);
+}
+
+.shape.hexagon-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/hexagon.png);
+}
+
+.shape.misc-3-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/misc-3.png);
+}
+
+.shape.pentagon-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/pentagon.png#1);
+}
+
+.shape.plus-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/plus.png);
+}
+
+.shape.square-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/square.png);
+}
+
+.shape.star-4-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-4.png);
+}
+
+.shape.star-5-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-5.png);
+}
+
+.shape.star-ray-6-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-ray-6.png);
+}
+
+.shape.triangle-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/triangle.png);
+}
+/* Alternative - partial */
+.shape.circle-double-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle-double-nofill.png);
+}
+
+.shape.circle-half-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle-half-nofill.png);
+}
+
+.shape.circle-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/circle-nofill.png);
+}
+
+.shape.clover-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/clover-nofill.png);
+}
+
+.shape.diamond-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/diamond-nofill.png);
+}
+
+.shape.heart-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/heart-nofill.png);
+}
+
+.shape.hexagon-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/hexagon-nofill.png);
+}
+
+.shape.misc-3-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/misc-3-nofill.png);
+}
+
+.shape.pentagon-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/pentagon-nofill.png);
+}
+
+.shape.plus-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/plus-nofill.png);
+}
+
+.shape.square-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/square-nofill.png);
+}
+
+.shape.star-4-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-4-nofill.png);
+}
+
+.shape.star-5-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-5-nofill.png);
+}
+
+.shape.star-ray-6-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/star-ray-6-nofill.png);
+}
+
+.shape.triangle-partial-alt {
+    background-image: url(Images/Icons/Grid/Shapes/12x12/Light/triangle-nofill.png);
+}

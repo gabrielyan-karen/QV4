@@ -1,0 +1,66 @@
+@import "Main.CSS.less";
+
+/* -- Tooltip -- */
+
+/* Tooltips can be outside of the cell over adjacent cells */
+.highcharts-container {
+    overflow: visible !important;
+
+    * {
+        text-shadow: none !important; /* Highcharts may display text shadow for text in bars for some reason. */
+    }
+}
+
+.highcharts-tooltip {
+    color: White;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    font-size: 9pt;
+    /* A class to applied to a tooltip that displays a positive value */
+    &.positive {
+        border: 2px solid #008000;
+    }
+    /* A class to applied to a tooltip that displays a negative value */
+    &.negative {
+        border: 2px solid #C00000;
+    }
+    /* Override the default style for positive values */
+    .positive-value {
+        color: #00D000;
+    }
+    /* Override the default style for negative values */
+    .negative-value {
+        color: #FF0000;
+    }
+    /* Override the default style for zero values */
+    .neutral-value {
+        color: #AAA;
+    }
+
+    hr {
+        border-width: 0px;
+        border-top-width: 1px;
+    }
+    /* - Top markets - */
+    &.top-markets {
+        .description {
+            color: Yellow;
+            font-size: 10px;
+            font-weight: bold;
+
+            table {
+                color: Yellow;
+
+                td {
+                    padding: 1px 2px;
+
+                    &:nth-child(2) {
+                        min-width: 120px;
+                        white-space: normal;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,307 @@
+@import "Main.Core.less";
+@import "Main.CSS.less";
+@import "Main.Controls.less";
+
+/* #region Dialogs */
+
+/* #region Themes */
+
+/* Defines the values of the configurable properties of a theme */
+.dialog-theme-def(cyan) {
+    /* Primary background color */
+    @background-color: #087679;
+    /* Primary text color */
+    @text-color: ghostwhite;
+    /* The height of the header and the footer */
+    @header-background-color: #086c6f;
+    @header-text-color: @text-color;
+    @footer-background-color: initial;
+    @footer-text-color: @text-color;
+    @footer-text-size: initial;
+}
+
+/* Defines the values of the configurable properties of a theme */
+.dialog-theme-def(black) {
+    /* Primary background color */
+    @background-color: ghostwhite;
+    /* Primary text color */
+    @text-color: black;
+    /* The height of the header and the footer */
+    @header-background-color: #202020;
+    @header-text-color: ghostwhite;
+    @footer-background-color: initial;
+    @footer-text-color: @text-color;
+    @footer-text-size: initial;
+}
+
+/* Defines the configurable properties of a theme */
+.dialog-theme(@theme) {
+    .dialog-theme-def(@theme);
+    background-color: @background-color;
+    color: @text-color;
+    /* The header is divided to two sections: left (icon), middle (title) and right (close button) */
+    & > .header {
+        position: relative; // Contain absolute positioned child elements
+        color: @header-text-color;
+        background-color: @header-background-color;
+    }
+
+    & > .footer {
+        position: relative; // Contain absolute positioned child elements
+        color: @footer-text-color;
+        background-color: @footer-background-color;
+        font-size: @footer-text-size;
+    }
+
+    & > .content {
+        position: relative; // Contain absolute positioned child elements
+    }
+}
+
+/* #endregion */
+
+/* #region Basic */
+
+/* A container for any dialog */
+.dialog-container {
+    // A non-modal dialog
+    &:not(.modal) {
+        .parent-layer(); // Enable user input to pass through the layer
+    }
+    // A modal dialog
+    &.modal {
+        .parent-overlay(); // Block user input
+    }
+    // Used by the log-in dialog on mobile
+    &.top-center {
+        .top-center-child();
+
+        > .dialog {
+            margin: 15px; /* There must be at least 15px between the edge of the window and its content */
+            margin-top: 5px;
+            max-width: 90%; // The margin is ignored when the dialog is wider than the available space (overflow)
+        }
+    }
+    // The dialog is full-screen
+    &.full-screen > .dialog {
+        .fill-parent();
+    }
+    // The dialog is not full-screen or top-center
+    &:not(.full-screen):not(.top-center) {
+        .center-child(); /* Center dialogs within the layout */
+        > .dialog {
+            margin: 15px; /* There must be at least 15px between the edge of the window and its content */
+            max-width: 90%; // The margin is ignored when the dialog is wider than the available space (overflow)
+        }
+    }
+}
+
+/* A dialog */
+.dialog {
+    .css-flex(column);
+    font-size: 10pt;
+    /* The header is divided to two sections: left (icon), middle (title) and right (close button) */
+    & > .header {
+        .css-order(1);
+        .css-flex(row, nowrap);
+        .css-align-items(center);
+        height: 50px;
+        font-size: 14pt;
+        padding: 0px 10px;
+
+        & > .left {
+            .css-order(1);
+            margin-right: 5px;
+        }
+
+        & > .right {
+            .css-order(3);
+            margin-left: 5px;
+        }
+
+        & > .fill {
+            .css-order(2);
+            .css-flex-grow(1);
+            .css-flex-shrink(1);
+            text-align: center;
+            padding: 0px 20px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden; /* MUST be set in order to display illipsis */
+        }
+    }
+
+    & > .footer {
+        .css-order(3);
+        .css-flex(row, nowrap);
+        .css-justify-content(center);
+        .css-align-items(center);
+        height: 50px;
+    }
+
+    & > .content {
+        .css-order(2);
+        .css-flex-grow(1);
+        .css-flex-shrink(1);
+        .css-box-sizing(border-box);
+        // Margin should be used instead of padding in order to support scrolling of the content.
+        // When a DIV is overflowed padding is not honored.
+        margin: 20px;
+    }
+}
+
+/* #endregion */
+
+/* #region Dialogs */
+
+/* #region Log-in/Log-out */
+
+.dialog.dialog-login {
+    /* The default width of the dialog; comes smaller if does not fit in the window */
+    width: 450px;
+
+    & > .content > table {
+        margin: auto;
+
+        & tr > td {
+            padding-top: 5px;
+            padding-bottom: 5px;
+        }
+
+        & tr > td:nth-child(1):not([colspan]) {
+            white-space: nowrap;
+            text-align: right;
+            padding-right: 20px;
+        }
+    }
+}
+
+.dialog.dialog-logout {
+}
+
+/* #endregion */
+
+/* #region Confirmation */
+
+.dialog.confirmation {
+}
+
+/* #endregion */
+
+/* #region Message */
+
+.dialog.message {
+}
+
+/* #endregion */
+
+/* #region History */
+
+.dialog.history {
+    .desktop & {
+        min-width: 50vw;
+        min-height: 50vh;
+        max-width: 90vw;
+        max-height: 90vh;
+    }
+
+    & > .content {
+        .css-fast-scrolling; // Enable fast scrolling on iOS
+        overflow-y: auto;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: normal;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        h1 {
+            font-size: 20pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            .mobile & {
+                // Use smaller font on mobile in order to fit on a single line on iPhone
+                // (14pt also fits, but barely)
+                font-size: 13pt;
+            }
+        }
+
+        h4 {
+            font-size: 10pt;
+            color: Blue;
+        }
+
+        div.item {
+            margin-bottom: 60px;
+            max-width: 800px;
+        }
+
+        &.error {
+            color: red; // Occurs when it is not possible to load the history from the server
+        }
+    }
+}
+
+/* #endregion */
+
+/* #region Tooltip */
+
+.dialog.tooltip {
+    max-width: 90vw;
+    max-height: 80vh;
+
+    & > .content {
+        .css-fast-scrolling; // Enable fast scrolling on iOS
+        overflow-y: auto;
+    }
+}
+
+/* #endregion */
+
+/* #region First run */
+
+.dialog.application-first-run {
+    width: 450px;
+    opacity: 0.8;
+
+    & > .content {
+        .progress-label {
+            text-align: center;
+            font-size: 8pt;
+            margin-top: 20px;
+        }
+
+        .progress-bar {
+            margin: 5px 20px 10px 20px;
+        }
+    }
+}
+
+/* #endregion */
+
+/* #endregion */
+
+/* #endregion */
+
+/* #region Generate themes */
+
+.generate-dialog-themes() {
+    .iter(@i: length(@theme-list)) when (@i > 0) {
+        @item: e(extract(@theme-list, @i));
+
+        .dialog {
+            &.theme-@{item} {
+                .dialog-theme(@item);
+            }
+        }
+
+        .iter(@i - 1);
+    }
+
+    .iter;
+}
+
+.generate-dialog-themes();
+
+/* #endregion */

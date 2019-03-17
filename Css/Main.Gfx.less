@@ -1,0 +1,128 @@
+@import "Main.Core.less";
+@import "Main.CSS.less";
+
+/* #region Matrix */
+
+.matrix {
+    // The font size is used to scale the matrix. The text should always be based on a different font size.
+    font-size: 1px;
+
+    @cell-size: 50em;
+    // The size of the text
+    @text-font-size: 8pt;
+
+    .zero-cell {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: @cell-size * 3;
+        height: @cell-size * 3;
+        border: 1px solid gray;
+        .css-box-sizing(border-box);
+    }
+
+    .header {
+        /* 
+            Make the primary unit the size of the cell so that the dimensions of the header can be set by the
+            number of cells.
+        */
+        font-size: @cell-size;
+
+        &.top-header {
+            position: absolute;
+            top: 0px;
+            left: 3em;
+            right: 0px;
+            height: 3em;
+            overflow: hidden;
+            white-space: nowrap;
+
+            & > .content {
+                & > .cell {
+                    float: left;
+                    margin-left: 1px;
+                    width: 3em;
+                    height: 1em;
+                    .css-box-sizing(border-box);
+                    padding: 3px;
+                    border: 1px solid orange;
+
+                    &:nth-child(3n+2) {
+                        margin-top: 1em;
+                    }
+
+                    &:nth-child(3n+0) {
+                        margin-top: 2em;
+                    }
+
+                    &:not(:first-child) {
+                        margin-left: calc(~"-2em + 1px");
+                    }
+                }
+            }
+        }
+
+        &.left-header {
+            position: absolute;
+            top: 3em;
+            left: 0px;
+            bottom: 0px;
+            width: 3em;
+            overflow: hidden;
+
+            & > .content {
+                & > .cell {
+                    margin-top: 1px;
+                    width: 3em;
+                    height: 1em;
+                    .css-box-sizing(border-box);
+                    padding: 3px;
+                    border: 1px solid orange;
+                }
+            }
+        }
+    }
+
+    .data {
+        font-size: @cell-size;
+        position: absolute;
+        top: 3em;
+        left: 3em;
+        bottom: 0px;
+        right: 0px;
+        overflow: auto;
+
+        & > .content {
+            /* 
+                Make the size of the font equal to the size of a single cell. This makes it possible to
+                set the width and height of the content to the number of cells.
+            */
+            & > .cell, & > .diag-cell {
+                float: left;
+                margin-left: 1px;
+                margin-top: 1px;
+                width: 1em;
+                height: 1em;
+            }
+
+            & > .cell {
+                background-color: green;
+            }
+
+            & > .diag-cell {
+                border: 1px solid gray;
+                .css-box-sizing(border-box);
+            }
+        }
+    }
+
+    .line-separator {
+        clear: both;
+    }
+    /* The default font size inside all cells */
+    .cell span {
+        font-size: @text-font-size;
+    }
+}
+
+/* #endregion */

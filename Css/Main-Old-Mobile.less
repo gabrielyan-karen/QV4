@@ -1,0 +1,177 @@
+﻿/* #region Global */
+
+/* --- Elements --- */
+
+/* Disable text shadow set by JQM */
+* {
+    text-shadow: none !important;
+}
+
+/* #endregion Global */
+
+/*** Menus ***/
+
+.history_new_version a {
+    color: #f20000 !important;
+}
+
+.new_version a {
+    color: #f20000 !important;
+}
+
+/*** Tooltip ***/
+
+.tooltip {
+    font-size: 9pt;
+}
+
+    .tooltip > .title {
+        font-weight: bold;
+    }
+
+    .tooltip > .content {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; /* Show scrollbars on iOS 5 */
+    }
+
+    .tooltip > .buttons_panel {
+        margin-top: 10px;
+        text-align: center;
+    }
+
+/*** Menu ***/
+
+.mobile_menu ul {
+    max-width: 300px;
+}
+
+.mobile_menu.icons ul > li a {
+    margin-left: 25px;
+}
+
+.mobile_menu ul > li.ui-li-divider {
+    padding-left: 15px; /* "a" tags have 25px margin plus 15px padding (set by JQM) */
+}
+
+.mobile_menu.icons ul > li.ui-li-divider {
+    padding-left: 40px; /* "a" tags have 25px margin plus 15px padding (set by JQM) */
+}
+
+.mobile_menu.icons ul > li a {
+}
+
+/* Funds menu */
+
+.funds_menu_page {
+}
+
+    .funds_menu_page .menu_title {
+        max-width: 300px;
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+table.funds_menu {
+    table-layout: fixed;
+    max-width: 300px;
+    width: 100%;
+    border-spacing: 0px;
+}
+
+    table.funds_menu tr:first-child th:not(:first-child) {
+        /* Since the layout of the table is 'fixed' the width of the columns must be set for the first */
+        width: 50px;
+    }
+
+    table.funds_menu th,
+    table.funds_menu td {
+        padding: 0px;
+        text-overflow: ellipsis;
+    }
+
+        table.funds_menu th .ui-btn,
+        table.funds_menu td .ui-btn {
+            margin: 0px;
+        }
+
+        table.funds_menu td .ui-btn-inner {
+            padding-left: 5px; /* The default padding is 20px which makes the text be displayed not in the center */
+            padding-right: 5px; /* The default padding is 20px which makes the text be displayed not in the center */
+        }
+
+        table.funds_menu th .ui-btn {
+            text-align: left;
+        }
+
+/*** Dialogs ***/
+
+/* Confirmation dialog */
+
+#jqMobile_ConfirmationDialog .ui-header .ui-title {
+    margin-left: 10px; /* Give more space to the title */
+    margin-right: 10px;
+}
+
+/* Log-in dialog */
+
+/* Position the dialog at the top center of the window */
+#jqMobile_LogIn {
+    position: fixed;
+    top: 10px;
+    left: 20px;
+    right: 20px;
+    max-width: 350px;
+    margin: 0px auto;
+}
+
+._id_dialog_close, ._id_dialog_close:hover {
+    color: #C00000;
+}
+
+/*** UI Windows ***/
+
+.ui_window {
+    position: relative;
+    /* Disable text shadow set by JQM */
+    text-shadow: none !important;
+    background-color: #1e1e24;
+}
+
+    .ui_window > .content {
+        /* Top and bottom margins DOES NOT work (the margin is applied to the parent div) for a div inside another div
+     * if the parent div does not have any content. Also using "height: 100%" may cause issues. Therefore, it is best
+     * to use abosolut positioning.
+     */
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+    }
+
+    .ui_window.enable_toolbar > .content {
+        top: 50px;
+    }
+
+    .ui_window.enable_toolbar.enable_navbar > .content {
+        top: 90px;
+    }
+
+    .ui_window.enable_toolbar.enable_controlbar > .content {
+        top: 85px;
+    }
+
+    .ui_window.enable_toolbar.enable_navbar.enable_controlbar > .content {
+        top: 125px;
+    }
+
+table.correlation_ab {
+    width: 100%;
+    border-spacing: 0px;
+}
+
+    table.correlation_ab td {
+        padding: 0px;
+        text-align: center;
+    }

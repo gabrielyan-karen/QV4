@@ -1,0 +1,206 @@
+/* --- Contains various CSS3 classes that require CSS vendor prefixes --- */
+
+/* Renders vendor prefixes for the property */
+.css-vendor-prop(@name, @value) {
+    -webkit-@{name}: @value;
+    -khtml-@{name}: @value;
+    -moz-@{name}: @value;
+    -ms-@{name}: @value;
+    -o-@{name}: @value;
+    @{name}: @value;
+}
+
+/* Renders vendor prefixes for the value */
+.css-vendor-value(@prop, @value) {
+    @{prop}: ~"-webkit-@{value}";
+    @{prop}: ~"-khtml-@{value}";
+    @{prop}: ~"-moz-@{value}";
+    @{prop}: ~"-ms-@{value}";
+    @{prop}: ~"-o-@{value}";
+    @{prop}: ~"@{value}";
+}
+
+.css-filter(@filter) {
+    /* LESS does not recognize some fitlers (e.g. the "grayscale" filter) so literal string should be used */
+    .css-vendor-prop(filter, ~"@{filter}")
+}
+
+.css-user-select(@value) {
+    -webkit-touch-callout: @value;
+    .css-vendor-prop(user-select, @value)
+}
+
+/* -- Flex layout -- */
+
+/*
+    @direction: column, row
+    @wrap: wrap, nowrap
+*/
+.css-flex(@direction: row, @wrap: initial) {
+    display: -webkit-flex; /* NEW - Chrome */
+    /* Different (old) behavior on iOS 7 so it MUST not be used */
+    /*display: -webkit-box; /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box; /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -ms-flexbox; /* TWEENER - IE 10 */
+    display: flex; /* Required by Firefox */
+    display: flexbox; /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    .css-vendor-prop(flex-direction, @direction);
+    .css-vendor-prop(flex-wrap, @wrap);
+
+    & > * {
+        .css-flex-shrink(0); /* Shrinking is enabled by default so disable it */
+    }
+}
+
+/* Changes the order of elements in a flex layout */
+.css-order(@value) {
+    .css-vendor-prop(order, @value);
+}
+
+/* Aligns all elements in a flex layout on the main axis
+   @value: flex-start | flex-end | center | space-between | space-around
+ */
+.css-justify-content(@value) {
+    .css-vendor-prop(justify-content, @value);
+}
+
+/* Aligns all elements in a flex layout on the cross axis. Items are aligned together.
+   @value: flex-start | flex-end | center | space-between | space-around | stretch
+ */
+.css-align-content(@value) {
+    .css-vendor-prop(align-content, @value);
+}
+
+/* Aligns all elements in a flex layout on the cross axis. Each time is aligned separately.
+   @value: flex-start | flex-end | center | baseline | stretch
+ */
+.css-align-items(@value) {
+    .css-vendor-prop(align-items, @value);
+}
+
+/* Aligns an element in a flex layout 
+ * @value: auto | flex-start | flex-end | center | baseline | stretch
+ */
+.css-align-self(@value) {
+    .css-vendor-prop(align-self, @value);
+}
+
+/* Indicates if the size of the element can increase.
+ * @value: inherit, initial, <number>
+ */
+.css-flex-grow(@value) {
+    .css-vendor-prop(flex-grow, @value);
+}
+
+/* Indicates if the size of the element can decrease.
+ * @value: inherit, initial, <number>
+ */
+.css-flex-shrink(@value) {
+    .css-vendor-prop(flex-shrink, @value);
+}
+
+/* Absolute positioning */
+.css-position-absolute(@top: 0px; @left: 0px; @bottom: 0px; @right: 0px) {
+    position: absolute;
+    top: @top;
+    left: @left;
+    bottom: @bottom;
+    right: @right;
+}
+
+/* @value: content-box, border-box */
+.css-box-sizing(@value) {
+    .css-vendor-prop(box-sizing, @value);
+}
+
+/* A centered background image */
+.css-background-center-image() {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* A centered background image */
+.css-background-center-image(@url) {
+    .css-background-center-image;
+    background-image: url(@url);
+}
+
+/* Enables fast scrolling in DIVs on iOS (http://css-tricks.com/snippets/css/momentum-scrolling-on-ios-overflow-elements/) */
+.css-fast-scrolling() {
+    .css-vendor-prop(overflow-scrolling, touch);
+}
+
+/* #region Helper classes */
+
+/* Makes the element transparent to mouse events. The children of the element are able to handle mouse events. */
+.transparent-mouse-events() {
+    pointer-events: none;
+    /* Restore mouse events for all child elements */
+    & > * {
+        pointer-events: initial;
+    }
+}
+
+/* Entirely fills the parent with this element */
+.fill-parent(@zindex: inital) {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: @zindex;
+}
+
+/* A box the fills the entire parent. Same as "fill-parent". */
+.parent-layer-base(@zindex: inital) {
+    .fill-parent(@zindex);
+}
+
+/* A box that fills the entire screen and is transparent to mouse input events */
+.parent-layer(@zindex: inital) {
+    .parent-layer-base(@zindex);
+    .transparent-mouse-events;
+}
+
+/* A semi-transparent gray overlay over the screen the blocks any user input */
+.parent-overlay(@zindex: inital) {
+    .parent-layer-base(@zindex);
+    background: rgba(0,0,0,0.3);
+}
+
+/* A box centered within the parent; width and height must be specified in order to center the box * /
+.parent-centered-box(@width, @height) {
+    .parent-layer;
+    width: @width;
+    height: @height;
+}
+*/
+
+/* When applied to a parent element - centers the children of that element be it blocks or inline elements. */
+.center-child() {
+    .css-flex(row, nowrap);
+    .css-justify-content(center);
+    .css-align-items(center);
+}
+
+/* When applied to a parent element - centers the children of that element be it blocks or inline elements. */
+.center-child-horizontal() {
+    .css-flex(row, nowrap);
+    .css-justify-content(center);
+}
+
+/* When applied to a parent element - centers the children of that element be it blocks or inline elements. */
+.center-child-vertical() {
+    .css-flex(row, nowrap);
+    .css-align-items(center);
+}
+
+/* When applied to a parent element - centers the children of that element be it blocks or inline elements. */
+.top-center-child() {
+    .css-flex(row, nowrap);
+    .css-justify-content(center);
+    .css-align-items(flex-start);
+}
+
+/* #endregion */

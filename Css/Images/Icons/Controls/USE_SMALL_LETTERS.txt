@@ -1,0 +1,7 @@
+Names in HTML5 AppCache are case-sensitive. Thus the path of a file must be exactly
+the same as used in QV. Since in CSS themes are small letters so they must be in the
+file system. QV server-side automatically generates HTML5 cache manifest from
+existing files under the QV root.
+
+Path names in CSS must correspond to the names of the files exactly. This also applies
+to CSS and JS paths in HTML.
